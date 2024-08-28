@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\Websitemail;
+use App\Models\Admin; //use the table admin in database
 
 class AdminController extends Controller
 {
@@ -38,5 +40,33 @@ class AdminController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login')->with('success', 'Connection Terminated Successfully');
+    }
+
+    public function AdminForgetPassword()
+    {
+        return view('admin.forget_password');
+    }
+
+    public function AdminPasswordSubmit(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $admin_data = Admin::where('email', $request->email)->first(); //to check the admin emails is exsist in table
+        if (!$admin_data) { //if admin data not exsist
+            return redirect()->back()->with('error', 'You are not listed as Administrator');
+        }
+        $token = hash('sha256', time()); //give token to admin
+        $admin_data->token = $token;
+        $admin_data->update();
+
+        $reset_link = url('admin/reset-password/' . $token . '/' . $request->email);
+        $subject = "Your Reset Password Request";
+        $message = "Please proceed on the link below to reset your password.<br>";
+        $message .= "<a href='" . $reset_link . " '>Visit Through Here</a>";
+
+        \Mail::to($request->email)->send(new Websitemail($subject, $message));
+        return redirect()->back()->with('success', 'Reset Password Successful Send on Your Email');
     }
 }
