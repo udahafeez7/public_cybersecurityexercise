@@ -36,7 +36,7 @@ Route::get('/admin/forget_password', [AdminController::class, 'AdminForgetPasswo
 
 Route::post('/admin/password_submit', [AdminController::class, 'AdminPasswordSubmit'])->name('admin.password_submit');
 
-
+Route::get('/admin/reset-password/{token}/{email}', [AdminController::class, 'AdminResetPassword']); //when we called any routes thats had URL
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');

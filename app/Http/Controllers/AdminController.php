@@ -69,4 +69,13 @@ class AdminController extends Controller
         \Mail::to($request->email)->send(new Websitemail($subject, $message));
         return redirect()->back()->with('success', 'Reset Password Successful Send on Your Email');
     }
+    public function AdminResetPassword($token, $email)
+    {
+        $admin_data = Admin::where('email', $email)->where('token', $token)->first(); //matching the email and token
+
+        if (!$admin_data) {
+            return redirect()->route('admin.login')->with('error', 'Email and Token did not MATCH');
+        }
+        return view('admin.reset_password', compact('token', 'email'));
+    }
 }
