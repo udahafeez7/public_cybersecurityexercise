@@ -1,10 +1,10 @@
 <html>
 <title>
-    Administrator Page
+    Administrator Dashboard
 </title>
 
 <body>
-    <h1>Admin Main Dashboard</h1>
+    <h1>Cybersecurity Exercise: Admin Dashboard</h1>
 </body>
 
 </html>
