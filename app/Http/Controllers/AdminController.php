@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function AdminDashboard()
     {
-        return view('admin.admin_dashboard'); // Ensure admin_dashboard.blade.php exists in resources/views/admin
+        return view('admin.index'); // Ensure admin_dashboard.blade.php exists in resources/views/admin
     }
 
     public function AdminLoginSubmit(Request $request)
