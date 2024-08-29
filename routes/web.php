@@ -38,6 +38,9 @@ Route::post('/admin/password_submit', [AdminController::class, 'AdminPasswordSub
 
 Route::get('/admin/reset-password/{token}/{email}', [AdminController::class, 'AdminResetPassword']); //when we called any routes thats had URL
 
+Route::post('/admin/reset_password_submit', [AdminController::class, 'AdminResetPasswordSubmit'])->name('admin.reset_password_submit');
+
+
 // Route::middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
 // });
