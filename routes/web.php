@@ -14,7 +14,7 @@ Route::get('/', [UserController::class, 'Index'])->name('index');
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('frontend.dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -27,6 +27,10 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+    Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+    Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
+    Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
 });
 
 
