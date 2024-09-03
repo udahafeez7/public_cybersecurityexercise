@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h5 class="m-0">Operate food store or restaurants? <a href="login.html">Work With Us</a></h5>
+                <h5 class="m-0">Wants to expand your cybersecurity skills? <a href="login.html">Join Us</a></h5>
             </div>
         </div>
     </div>

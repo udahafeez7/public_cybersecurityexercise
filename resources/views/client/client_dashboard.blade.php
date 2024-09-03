@@ -4,7 +4,7 @@
 <>
 
     <meta charset="utf-8" />
-    <title>Cybersecurity Exercise: Admin Dashboard</title>
+    <title>Cybersecurity Exercise: Client Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -36,10 +36,10 @@
         <div id="layout-wrapper">
 
 
-            @include('admin.body.header')
+            @include('client.body.header')
 
             <!-- ========== Left Sidebar Start ========== -->
-            @include('admin.body.sidebar')
+            @include('client.body.sidebar')
             <!-- Left Sidebar End -->
 
 
@@ -49,11 +49,11 @@
             <!-- ============================================================== -->
             <div class="main-content">
 
-                @yield('admin')
+                @yield('client')
                 <!-- End Page-content -->
 
 
-                @include('admin.body.footer')
+                @include('client.body.footer')
             </div>
             <!-- end main content-->
 
@@ -62,7 +62,7 @@
 
 
         <!-- Right Sidebar -->
-        @include('admin.body.rightside')
+        @include('client.body.rightside')
         <!-- /Right-bar -->
 
         <!-- Right bar overlay-->

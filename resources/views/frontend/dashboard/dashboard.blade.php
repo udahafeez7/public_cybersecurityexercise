@@ -1,4 +1,12 @@
 @include('frontend.dashboard.header')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+@php
+    $id = Auth::user()->id;
+    $profileData = App\Models\User::find($id);
+@endphp
+
 <section class="section pt-4 pb-4 osahan-account-page">
     <div class="container">
         <div class="row">
@@ -7,54 +15,99 @@
             <div class="col-md-9">
                 <div class="osahan-account-page-right rounded shadow-sm bg-white p-4 h-100">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="preassessment" role="tabpanel"
+
+                        <!-- User Profile Section -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel"
+                            aria-labelledby="profile-tab">
+                            <h4 class="font-weight-bold mt-0 mb-4">Update User Profile</h4>
+                            <div class="bg-white card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <form action="{{ route('profile.store') }}" method="post"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="name" class="form-label">Name</label>
+                                                    <input class="form-control" type="text" name="name"
+                                                        value="{{ $profileData->name }}" id="name">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input class="form-control" name="email" type="email"
+                                                        value="{{ $profileData->email }}" id="email">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="phone" class="form-label">Phone</label>
+                                                    <input class="form-control" name="phone" type="text"
+                                                        value="{{ $profileData->phone }}" id="phone">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Address</label>
+                                                    <input class="form-control" name="address" type="text"
+                                                        value="{{ $profileData->address }}" id="address">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="photo" class="form-label">Profile Image</label>
+                                                    <input class="form-control" name="photo" type="file"
+                                                        id="image">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <img id="showImage"
+                                                        src="{{ !empty($profileData->photo) ? url('upload/user_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
+                                                        alt="Profile Image" class="rounded-circle p-1 bg-primary"
+                                                        width="110">
+                                                </div>
+
+                                                <div class="mt-4">
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End User Profile Section -->
+
+                        <!-- Pre-assessment Section -->
+                        <div class="tab-pane fade" id="preassessment" role="tabpanel"
                             aria-labelledby="preassessment-tab">
                             <h4 class="font-weight-bold mt-0 mb-4">Pre Training Activities</h4>
                             <div class="bg-white card mb-4 order-list shadow-sm">
                                 <div class="gold-members p-4">
-
                                     <a href="#">
                                         <div class="media">
                                             <img class="mr-4" src="{{ asset('frontend/img/3.jpg') }}"
-                                                alt="Generic placeholder image">
+                                                alt="Pre Training Exercise">
                                             <div class="media-body">
-                                                <span class="float-right text-info">Delivered on Mon, Nov 12, 7:18 PM <i
-                                                        class="icofont-check-circled text-success"></i></span>
                                                 <h6 class="mb-2">
                                                     <a href="detail.html" class="text-black"
                                                         style="
-                                                    font-size: 1.5rem; /* Increase the font size */
-                                                    font-weight: bold; /* Make the text bold */
-                                                    color: #db1111; /* Use a dark gray color for better readability */
-                                                    text-decoration: none; /* Remove the underline */
-                                                    padding: 8px 12px; /* Add some padding around the text */
-                                                    display: inline-block; /* Ensures padding applies well */
-                                                    border-radius: 4px; /* Rounded corners for a softer look */
-                                                    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
-                                                ">
+                                                        font-size: 1.5rem;
+                                                        font-weight: bold;
+                                                        color: #db1111;
+                                                        text-decoration: none;
+                                                        padding: 8px 12px;
+                                                        display: inline-block;
+                                                        border-radius: 4px;
+                                                        transition: background-color 0.3s ease, color 0.3s ease;">
                                                         Pre Training Exercise Questionnaire
                                                     </a>
-
-                                                    <style>
-                                                        a.text-black:hover {
-                                                            background-color: #f0f0f0;
-                                                            /* Light gray background on hover */
-                                                            color: #000000;
-                                                            /* Change text color to black on hover */
-                                                        }
-                                                    </style>
                                                 </h6>
                                                 <p class="text-black mb-1"><i class="icofont-location-arrow"></i>
-                                                    Conduct
-                                                    initial base knowledge
-                                                </p>
-                                                <p class="text-gray mb-3">
-                                                    <i class="icofont-clock-time ml-2"></i>
-                                                    <span id="order-time"></span>
-                                                </p>
+                                                    Conduct initial base knowledge</p>
+                                                <p class="text-gray mb-3"><i class="icofont-clock-time ml-2"></i> <span
+                                                        id="order-time"></span></p>
 
                                                 <script>
-                                                    // Function to format the date and time
                                                     function formatDateToJapanTime() {
                                                         const options = {
                                                             weekday: 'short',
@@ -63,22 +116,14 @@
                                                             day: 'numeric',
                                                             hour: '2-digit',
                                                             minute: '2-digit',
-                                                            hour12: true
+                                                            hour12: true,
+                                                            timeZone: 'Asia/Tokyo'
                                                         };
-                                                        const japanTime = new Date().toLocaleDateString('en-US', {
-                                                            timeZone: 'Asia/Tokyo',
-                                                            ...options
-                                                        });
-                                                        return japanTime;
+                                                        return new Date().toLocaleDateString('en-US', options);
                                                     }
-
-                                                    // Set the formatted time to the span element
                                                     document.getElementById('order-time').textContent = formatDateToJapanTime();
                                                 </script>
 
-                                                {{-- <p class="text-dark">Veg Masala Roll x 1, Veg Burger x 1, Veg Penne
-                                                    Pasta in Red Sauce x 1
-                                                </p> --}}
                                                 <hr>
                                                 <div class="float-right">
                                                     <a class="btn btn-sm btn-outline-primary" href="#"><i
@@ -86,10 +131,9 @@
                                                     <a class="btn btn-sm btn-primary"
                                                         href="https://forms.gle/6ph8XYdKFchDLgqr9" target="_blank"><i
                                                             class="icofont-refresh"></i> VISIT HERE</a>
-                                                </div>
-                                                {{-- <p class="mb-0 text-black text-primary pt-2"><span
-                                                        class="text-black font-weight-bold"> Total Paid:</span> $300
-                                                </p> --}}
+                                                </div> {{-- <p class="mb-0 text-black text-primary pt-2"><span
+                                            class="text-black font-weight-bold"> Total Paid:</span> $300
+                                    </p> --}}
                                             </div>
                                         </div>
                                     </a>
@@ -630,4 +674,40 @@
     </div>
     </div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#image').change(function(e) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#showImage').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(e.target.files['0']);
+        })
+    })
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @if (Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}"
+        switch (type) {
+            case 'info':
+                toastr.info(" {{ Session::get('message') }} ");
+                break;
+
+            case 'success':
+                toastr.success(" {{ Session::get('message') }} ");
+                break;
+
+            case 'warning':
+                toastr.warning(" {{ Session::get('message') }} ");
+                break;
+
+            case 'error':
+                toastr.error(" {{ Session::get('message') }} ");
+                break;
+        }
+    @endif
+</script>
+
 @include('frontend.dashboard.footer')
