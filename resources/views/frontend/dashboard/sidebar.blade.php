@@ -41,12 +41,16 @@
 
         <ul class="nav nav-tabs flex-column border-0" id="myTab" role="tablist" style="padding: 0;">
             <li class="nav-item">
-                <a class="nav-link active text-left menu-item" href="{{ route('dashboard') }}" role="tab"
+                <a class="nav-link text-left menu-item" href="{{ route('dashboard') }}" role="tab"
                     aria-controls="profile" aria-selected="true"><i class="icofont-user mr-2"></i>
                     User Profile</a>
+            <li class="nav-item">
+                <a class="nav-link text-left menu-item" href="{{ route('change.password') }}" role="tab"
+                    aria-controls="profile" aria-selected="true"><i class="icofont-user mr-2"></i>
+                    Change Password</a>
 
-                <a class="nav-link active text-left menu-item" id="preassessment-tab" data-toggle="tab"
-                    href="#preassessment" role="tab" aria-controls="preassessment" aria-selected="true">
+                <a class="nav-link text-left menu-item" id="preassessment-tab" data-toggle="tab" href="#preassessment"
+                    role="tab" aria-controls="preassessment" aria-selected="true">
                     <i class="icofont-food-cart mr-2"></i> Preassessment
                 </a>
             </li>

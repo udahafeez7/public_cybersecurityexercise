@@ -1,4 +1,4 @@
-<section class="section pt-5 pb-5 bg-white homepage-add-section">
+{{-- <section class="section pt-5 pb-5 bg-white homepage-add-section">
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-6">
@@ -27,4 +27,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}

@@ -13,9 +13,9 @@
                          </div>
                      </div>
                  </form>
-                 <p><a class="text-info" href="register.html">Register now</a> to get updates on <a
-                         href="offers.html">Offers and Coupons</a></p>
-                 <div class="app">
+                 {{-- <p><a class="text-info" href="register.html">Register now</a> to get updates on <a
+                         href="offers.html">Offers and Coupons</a></p> --}}
+                 {{-- <div class="app">
                      <p class="mb-2">DOWNLOAD APP</p>
                      <a href="#">
                          <img class="img-fluid" src="img/google.png">
@@ -23,44 +23,44 @@
                      <a href="#">
                          <img class="img-fluid" src="img/apple.png">
                      </a>
-                 </div>
+                 </div> --}}
              </div>
              <div class="col-md-1 col-sm-6 mobile-none">
              </div>
              <div class="col-md-2 col-6 col-sm-4">
-                 <h6 class="mb-3">About OE</h6>
+                 {{-- <h6 class="mb-3">About OE</h6>
                  <ul>
                      <li><a href="#">About Us</a></li>
                      <li><a href="#">Culture</a></li>
                      <li><a href="#">Blog</a></li>
                      <li><a href="#">Careers</a></li>
                      <li><a href="#">Contact</a></li>
-                 </ul>
+                 </ul> --}}
              </div>
              <div class="col-md-2 col-6 col-sm-4">
-                 <h6 class="mb-3">For Foodies</h6>
+                 {{-- <h6 class="mb-3">For Foodies</h6>
                  <ul>
                      <li><a href="#">Community</a></li>
                      <li><a href="#">Developers</a></li>
                      <li><a href="#">Blogger Help</a></li>
                      <li><a href="#">Verified Users</a></li>
                      <li><a href="#">Code of Conduct</a></li>
-                 </ul>
+                 </ul> --}}
              </div>
              <div class="col-md-2 m-none col-4 col-sm-4">
-                 <h6 class="mb-3">For Restaurants</h6>
+                 {{-- <h6 class="mb-3">About OE</h6>
                  <ul>
-                     <li><a href="#">Advertise</a></li>
-                     <li><a href="#">Add a Restaurant</a></li>
-                     <li><a href="#">Claim your Listing</a></li>
-                     <li><a href="#">For Businesses</a></li>
-                     <li><a href="#">Owner Guidelines</a></li>
-                 </ul>
+                     <li><a href="#">About Us</a></li>
+                     <li><a href="#">Culture</a></li>
+                     <li><a href="#">Blog</a></li>
+                     <li><a href="#">Careers</a></li>
+                     <li><a href="#">Contact</a></li>
+                 </ul> --}}
              </div>
          </div>
      </div>
  </section>
- <section class="footer-bottom-search pt-5 pb-5 bg-white">
+ {{-- <section class="footer-bottom-search pt-5 pb-5 bg-white">
      <div class="container">
          <div class="row">
              <div class="col-xl-12">
@@ -111,7 +111,7 @@
              </div>
          </div>
      </div>
- </section>
+ </section> --}}
  <footer class="pt-4 pb-4 text-center">
      <div class="container">
          <p class="mt-0 mb-0">© Copyright 2024 Mohammad Hafiz Hersyah. All Rights Reserved</p>

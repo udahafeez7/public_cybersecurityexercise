@@ -10,7 +10,7 @@
                     <h5 class="mb-5 text-shadow text-white-50 font-weight-normal">Empowering Future Security
                         Generation</h5>
                 </div>
-                <div class="homepage-search-form">
+                {{-- <div class="homepage-search-form">
                     <form class="form-noborder">
                         <div class="form-row">
                             <div class="col-lg-3 col-md-3 col-sm-12 form-group">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
 
             </div>
 
