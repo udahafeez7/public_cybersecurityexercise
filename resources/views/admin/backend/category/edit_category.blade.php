@@ -9,12 +9,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Add New Category</h4>
+                        <h4 class="mb-sm-0 font-size-18">Edit Exsisting Category</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Add Category</li>
+                                <li class="breadcrumb-item active">Edit Category</li>
                             </ol>
                         </div>
 
@@ -26,16 +26,18 @@
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
                         <div class="card-body p-4">
-                            <form id="myForm" action="{{ route('category.store') }}" method="post"
+                            <form id="myForm" action="{{ route('category.update') }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $category->id }}">
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div>
                                             <div class="form-group mb-3">
                                                 <label for="example-text-input" class="form-label"> Category Name</label>
                                                 <input class="form-control" name="category_name" type="text"
-                                                    id="example-text-input">
+                                                    value="{{ $category->category_name }}" id="example-text-input">
                                             </div>
 
 
@@ -53,12 +55,12 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt=""
+                                                <img id="showImage" src="{{ asset($category->image) }}" alt=""
                                                     class="img-fluid rounded-block d-block p-1 bg-primary" width="110">
 
                                             </div>
                                             <div class="mt-4">
-                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Add
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Edit
                                                     Category</button>
                                             </div>
                                         </div>
@@ -104,18 +106,14 @@
                     category_name: {
                         required: true,
                     },
-                    image: {
-                        required: true,
-                    },
+
 
                 },
                 messages: {
                     category_name: {
                         required: 'You HAVE to Enter a Category Name',
                     },
-                    image: {
-                        required: 'You HAVE to provide some image',
-                    },
+
 
 
                 },
