@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\LearningController;
 
 // Route for the home page
 Route::get('/', [UserController::class, 'Index'])->name('index');
@@ -34,6 +35,26 @@ Route::middleware('admin')->group(function () {
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
 });
 
+//admin/LearningController
+Route::middleware('admin')->group(function () {
+    Route::controller(LearningController::class)->group(function () {
+        Route::get('/all/pretasks', 'AllPretasks')->name('all.pretasks');
+        Route::get('/add/pretasks', 'AddPretasks')->name('add.pretasks');
+        Route::post('/store/pretasks', 'StorePretasks')->name('pretasks.store');
+        Route::get('/edit/pretasks{id}', 'EditPretasks')->name('edit.pretasks');
+        Route::post('/update/pretasks', 'UpdatePretasks')->name('pretasks.update');
+        Route::get('/delete/pretasks{id}', 'DeletePretasks')->name('delete.pretasks');
+    });
+
+    Route::controller(LearningController::class)->group(function () {
+        Route::get('/all/material', 'AllMaterial')->name('all.material');
+        Route::get('/add/material', 'AddMaterial')->name('add.material');
+        Route::post('/store/material', 'StoreMaterial')->name('material.store');
+        Route::get('/edit/material{id}', 'EditMaterial')->name('edit.material');
+        Route::post('/update/material', 'UpdateMaterial')->name('pretasks.material');
+        Route::get('/delete/material{id}', 'DeleteMaterial')->name('delete.material');
+    });
+});
 
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');

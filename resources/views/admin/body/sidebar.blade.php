@@ -1,7 +1,5 @@
 <div class="vertical-menu">
-
     <div data-simplebar class="h-100">
-
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
@@ -26,17 +24,49 @@
                                 <span data-key="t-calendar">All Category</span>
                             </a>
                         </li>
-
                         <li>
                             <a href="{{ route('add.category') }}">
                                 <span data-key="t-chat">Add Category</span>
                             </a>
                         </li>
+                    </ul>
+                </li>
 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Learning</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('all.pretasks') }}">
+                                <span data-key="t-calendar">All Pretasks</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('add.pretasks') }}">
+                                <span data-key="t-chat">Add Pretasks</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-
-
-
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Cognitive Material</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('all.material') }}">
+                                <span data-key="t-calendar">All Material</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('add.material') }}">
+                                <span data-key="t-chat">Add Material</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -48,13 +78,8 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="auth-login.html" data-key="t-login">Login</a></li>
                         <li><a href="auth-register.html" data-key="t-register">Register</a></li>
-
                     </ul>
                 </li>
-
-
-
-
 
                 <li class="menu-title mt-2" data-key="t-components">Elements</li>
 
@@ -66,7 +91,6 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="ui-alerts.html" data-key="t-alerts">Alerts</a></li>
                         <li><a href="ui-buttons.html" data-key="t-buttons">Buttons</a></li>
-
                     </ul>
                 </li>
 
@@ -77,20 +101,9 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="extended-lightbox.html" data-key="t-lightbox">Lightbox</a></li>
-                        <li><a href="extended-rangeslider.html" data-key="t-range-slider">Range Slider</a>
-                        </li>
-
+                        <li><a href="extended-rangeslider.html" data-key="t-range-slider">Range Slider</a></li>
+                    </ul>
                 </li>
-            </ul>
-            </li>
-
-
-
-
-
-
-
-
             </ul>
 
             <div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
@@ -98,9 +111,7 @@
                     <img src="assets/images/giftbox.png" alt="">
                     <div class="mt-4">
                         <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
-                        <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.
-                        </p>
-
+                        <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
                     </div>
                 </div>
             </div>
