@@ -132,7 +132,7 @@ class LearningController extends Controller
     // Method to get all material for learning self-paced
     public function AllMaterial()
     {
-        $material = Material::latest()->get();
+        $material = Material::orderBy('pretasks_id', 'asc')->get(); // Order by pretasks_id ascending
         return view('admin.backend.material.all_material', compact('material'));
     }
 
