@@ -54,6 +54,15 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/material', 'UpdateMaterial')->name('material.update');
         Route::get('/delete/material/{id}', 'DeleteMaterial')->name('delete.material');
     });
+
+    Route::controller(LearningController::class)->group(function () {
+        Route::get('/all/gallery', 'AllGallery')->name('all.gallery');
+        Route::get('/add/gallery', 'AddGallery')->name('add.gallery');
+        Route::post('/store/gallery', 'StoreGallery')->name('gallery.store');
+        Route::get('/edit/gallery/{id}', 'EditGallery')->name('edit.gallery');
+        Route::post('/update/gallery', 'UpdateGallery')->name('gallery.update');
+        Route::get('/delete/gallery/{id}', 'DeleteGallery')->name('delete.gallery');
+    });
 });
 
 

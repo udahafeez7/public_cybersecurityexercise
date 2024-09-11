@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Pretasks;
 use App\Models\Material;
 use Illuminate\Support\Facades\Auth;
@@ -236,5 +237,126 @@ class LearningController extends Controller
             return redirect()->route('all.material')->with($notification);
         }
     }
+    public function DeleteMaterial($id)
+    {
+        $item = Material::find($id);
+        $img = $item->image;
+
+        // Delete the image from storage
+        if (file_exists(public_path($img))) {
+            unlink(public_path($img));
+        }
+
+        // Delete the pretasks record
+        Material::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Material Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+    //Galleryyyyyyyy
+    public function AllGallery()
+    {
+        $gallery = Gallery::latest()->get();
+        return view('admin.backend.gallery.all_gallery', compact('gallery'));
+    }
+
+    public function AddGallery()
+    {
+        $gallery = Gallery::latest()->get();
+        return view('admin.backend.gallery.add_gallery', compact('gallery'));
+    }
     //End Games
+    public function StoreGallery(Request $request)
+    {
+        $images = $request->file('gallery_img');
+
+        foreach ($images as $gimg) {
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .
+                $gimg->getClientOriginalExtension();
+            $img = $manager->read($gimg);
+            $img->resize(500, 500)->save(public_path('upload/gallery/' . $name_gen));
+            $save_url = 'upload/gallery/' . $name_gen;
+
+            Gallery::insert([
+                'admin_id' => Auth::guard('admin')->id(),
+                'gallery_img' => $save_url,
+            ]);
+        }
+        $notification = array(
+            'message' => 'Gallery Added Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.gallery')->with($notification);
+    }
+    public function EditGallery($id)
+    {
+        $gallery = Gallery::find($id);
+        return view('admin.backend.gallery.edit_gallery', compact('gallery'));
+    }
+    public function UpdateGallery(Request $request)
+    {
+        $gall_id = $request->id;
+
+        // // Validate the form data
+        // $request->validate([
+        //     'pretasks_name' => 'required|string|max:255',
+        //     'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        // ]);
+
+        if ($request->hasFile('gallery_img')) {
+            $image = $request->file('gallery_img');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' .
+                $image->getClientOriginalExtension();
+            $img = $manager->read($image); // Use the Image facade
+            $img->resize(500, 500)->save(public_path('upload/gallery/' . $name_gen));
+            $save_url = 'upload/gallery/' . $name_gen;
+
+            $gallery = Gallery::find($gall_id);
+            if ($gallery->gallery_img) {
+                $img = $gallery->gallery_img;
+                unlink($img);
+            }
+            $gallery->update([
+                'gallery_img' => $save_url,
+            ]);
+
+            $notification = array(
+                'message' => 'Gallery Updated Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.gallery')->with($notification);
+        } else {
+            $notification = array(
+                'message' => 'Are You Sure? No Images Updated',
+                'alert-type' => 'warning'
+            );
+            return redirect()->back()->with($notification);
+        }
+    }
+    public function DeleteGallery($id)
+    {
+        $item = Gallery::find($id);
+        $img = $item->gallery_img;
+
+        // // Delete the image from storage
+        // if (file_exists(public_path($img))) {
+        //     unlink(public_path($img));
+        // }
+
+        // Delete the pretasks record
+        Gallery::find($id)->delete();
+
+        $notification = array(
+            'message' => 'It is your choice to delete it, though..',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
 }
