@@ -177,5 +177,64 @@ class LearningController extends Controller
 
         return redirect()->route('all.material')->with($notification);
     }
+    // Method to edit pretasks
+
+    public function EditMaterial($id)
+    {
+
+        $category = Category::orderBy('id', 'asc')->get();
+        $pretasks = Pretasks::orderBy('id', 'asc')->get();
+        $material = Material::find($id);
+        return view('admin.backend.material.edit_material', compact('category', 'pretasks', 'material'));
+    }
+    public function UpdateMaterial(Request $request)
+    {
+        $mate_id = $request->id;
+
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $img = $manager->read($image);
+            $img->resize(300, 300)->save(public_path('upload/material/' . $name_gen));
+            $save_url = 'upload/material/' . $name_gen;
+
+            Material::find($mate_id)->update([
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'pretasks_id' => $request->pretasks_id,
+                'image' => $save_url,
+                'admin_id' => Auth::guard('admin')->id(),
+                'description' => $request->description,
+                'long_description' => $request->long_description,
+                'status_completed' => $request->status_completed ? true : false,
+                'created_at' => Carbon::now(),
+            ]);
+            $notification = array(
+                'message' => 'Material Updated Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.material')->with($notification);
+        } else {
+            Material::find($mate_id)->update([
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'pretasks_id' => $request->pretasks_id,
+                // 'code' => $pcode,
+                // 'image' => $save_url,
+                'admin_id' => Auth::guard('admin')->id(),
+                'description' => $request->description,
+                'long_description' => $request->long_description,
+                'status_completed' => $request->status_completed ? true : false,
+                'created_at' => Carbon::now(),
+            ]);
+            $notification = array(
+                'message' => 'Material Updated Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('all.material')->with($notification);
+        }
+    }
     //End Games
 }
