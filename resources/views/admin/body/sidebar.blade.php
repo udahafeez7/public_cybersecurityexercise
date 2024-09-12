@@ -50,6 +50,24 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Cognitive Material</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="{{ route('all.material') }}">
+                                <span data-key="t-calendar">All Material</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('add.material') }}">
+                                <span data-key="t-chat">Add Material</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
                 <li>
