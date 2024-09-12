@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LearningController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\UserLearningController;
 
 // Route for the home page
 Route::get('/', [UserController::class, 'Index'])->name('index');
@@ -23,6 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
     Route::get('/change/password', [UserController::class, 'ChangePassword'])->name('change.password');
     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
+
+    // Add Profile routes here
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit'); // Edit Profile Route
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update'); // Update Profile Route
+
 });
 
 require __DIR__ . '/auth.php';
@@ -81,6 +87,16 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/roles', 'UpdateRoles')->name('roles.update');
         Route::get('/delete/roles/{id}', 'DeleteRoles')->name('delete.roles');
     });
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/add/roles/permission', 'AddRolesPermission')->name('add.roles.permission');
+        Route::post('/role/permission/store', 'RolePermissionStore')->name('role.permission.store');
+        Route::get('/all/roles/permission', 'AllRolesPermission')->name('all.roles.permission');
+
+        Route::get('/admin/edit/roles/{id}', 'AdminEditRoles')->name('admin.edit.roles');
+
+        Route::post('/admin/roles/update/{id}', 'AdminRolesUpdate')->name('admin.roles.update');
+        Route::get('/admin/delect/roles/{id}', 'AdminDelectRoles')->name('admin.delect.roles');
+    });
 });
 
 
@@ -124,3 +140,6 @@ Route::middleware('admin')->group(function () {
         Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
     });
 });
+
+//Adding User Learning Routes that display all things from Admin Portal
+Route::get('/user/learning-materials', [UserLearningController::class, 'AllUserMaterials'])->name('user.materials');

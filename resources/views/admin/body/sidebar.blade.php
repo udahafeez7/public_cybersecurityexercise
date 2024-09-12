@@ -7,7 +7,7 @@
                 <li class="menu-title" data-key="t-menu">Menu</li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{ route('admin.dashboard') }}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
@@ -110,6 +110,8 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('all.permission') }}" data-key="t-alerts">All Permission</a></li>
                         <li><a href="{{ route('all.roles') }}" data-key="t-buttons">All Roles</a></li>
+                        <li><a href="{{ route('all.roles.permission') }}" data-key="t-buttons">Add Roles to Existing
+                                Permission</a></li>
                     </ul>
                 </li>
 

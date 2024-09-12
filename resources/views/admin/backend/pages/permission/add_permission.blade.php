@@ -45,6 +45,7 @@
                                                         <option selected disabled>Select Permission</option>
                                                         <option value="Category">Category</option>
                                                         <option value="Learning">Learning</option>
+                                                        <option value="Material">Material</option>
                                                         <option value="Gallery">Gallery</option>
                                                     </select>
 

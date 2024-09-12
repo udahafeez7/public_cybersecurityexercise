@@ -150,10 +150,14 @@
                                             <h5 class="card-title"><img src="img/bank/1.png"> MCDM</h5>
                                             <h6 class="card-subtitle mb-2 text-block">Multi Criteria Decision Making
                                             </h6>
-                                            {{-- <p class="card-text">Use code OSAHANEAT50 &amp; get 50% off on your first
+                                            {{-- <p class="card-text">Use code OSAHANEAT50 & get 50% off on your first
                                                 osahan order on Website and Mobile site. Maximum discount: $200</p> --}}
+
+                                            <!-- This link now directs to the user.materials route -->
+                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
+
+                                            <!-- Leave the other link unchanged or customize as needed -->
                                             <a href="#" class="card-link">COPY CODE</a>
-                                            <a href="#" class="card-link">KNOW MORE</a>
                                         </div>
                                     </div>
                                 </div>
