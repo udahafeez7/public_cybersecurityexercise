@@ -87,11 +87,11 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="briefcase"></i>
-                        <span data-key="t-components">Components</span>
+                        <span data-key="t-components">Role and Permission</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ui-alerts.html" data-key="t-alerts">Alerts</a></li>
-                        <li><a href="ui-buttons.html" data-key="t-buttons">Buttons</a></li>
+                        <li><a href="{{ route('all.permission') }}" data-key="t-alerts">All Permission</a></li>
+                        <li><a href="{{ route('all.roles') }}" data-key="t-buttons">All Roles</a></li>
                     </ul>
                 </li>
 
