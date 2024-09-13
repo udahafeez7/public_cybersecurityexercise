@@ -141,5 +141,5 @@ Route::middleware('admin')->group(function () {
     });
 });
 
-//Adding User Learning Routes that display all things from Admin Portal
-Route::get('/user/learning-materials', [UserLearningController::class, 'AllUserMaterials'])->name('user.materials');
+// Route to show all segmented materials in the dashboard
+Route::get('/user/materials', [UserLearningController::class, 'AllUserMaterials'])->name('user.materials');

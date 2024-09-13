@@ -96,6 +96,7 @@
                 card.style.width = 'auto';
                 card.style.height = 'auto';
                 card.style.zIndex = '0';
+                card.style.overflowY = 'visible'; // Reset overflow to default
             });
 
             // Expand only the clicked box and move it to the center
@@ -104,8 +105,9 @@
             card.style.top = '50%'; // Center vertically
             card.style.transform = 'translate(-50%, -50%) scale(1.3)'; // Make it bigger and move it to the middle
             card.style.zIndex = '10'; // Ensure the clicked card appears on top of others
-            card.style.width = '60vw'; // Make the box wider
-            card.style.height = 'auto'; // Keep the height dynamic based on content
+            card.style.width = '70vw'; // Make the box wider
+            card.style.height = '80vh'; // Limit height to 80% of the viewport
+            card.style.overflowY = 'auto'; // Enable vertical scrolling if content is too long
 
             // Show the details
             var details = document.getElementById('material-details-' + id);

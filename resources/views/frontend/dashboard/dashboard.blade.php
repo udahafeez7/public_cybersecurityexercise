@@ -141,85 +141,74 @@
                             </div>
 
                         </div>
-                        <!-- Multi Criteria Decision Making (Records 1-7) -->
                         <div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning-tab">
                             <h4 class="font-weight-bold mt-0 mb-4">Self-Paced Learning Material</h4>
 
                             <!-- First Row with Two Cards -->
                             <div class="row mb-4 pb-2">
-                                @foreach ($materials->slice(0, 7) as $material)
-                                    <div class="col-md-6">
-                                        <div class="card offer-card shadow-sm">
-                                            <div class="card-body">
-                                                <!-- Image taking full width of the container -->
-                                                <img src="{{ asset('frontend/img/list/1.png') }}"
-                                                    class="img-fluid w-100" alt="{{ $material->title }}">
-                                                <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}
-                                                </h6>
-                                                <a href="{{ route('user.materials') }}" class="card-link">KNOW
-                                                    MORE</a>
-                                                <a href="#" class="card-link">COPY CODE</a>
-                                            </div>
+                                <!-- First Card -->
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- Image taking full width of the container -->
+                                            <img src="{{ asset('frontend/img/list/1.png') }}" class="img-fluid w-100"
+                                                alt="MCDM">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Multi Criteria Decision
+                                                Making</h6>
+                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
+                                            <a href="#" class="card-link">COPY CODE</a>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
-                        </div>
+                                </div>
 
-                        <!-- System Complexity (Records 8-11) -->
-                        <div class="row mb-4 pb-2">
-                            @foreach ($materials->slice(7, 4) as $material)
+                                <!-- Second Card -->
                                 <div class="col-md-6">
                                     <div class="card offer-card shadow-sm">
                                         <div class="card-body">
                                             <!-- Image taking full width of the container -->
                                             <img src="{{ asset('frontend/img/list/3.png') }}" class="img-fluid w-100"
-                                                alt="{{ $material->title }}">
-                                            <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}</h6>
+                                                alt="System Complexity">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">System Complexity</h6>
                                             <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
                                             <a href="#" class="card-link">COPY CODE</a>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
 
-                        <!-- Risk Level and Mitigation Determination (Records 12-15) -->
-                        <div class="row mb-4 pb-2">
-                            @foreach ($materials->slice(11, 4) as $material)
+                            <!-- Second Row with Two Cards -->
+                            <div class="row mb-4 pb-2">
+                                <!-- Third Card -->
                                 <div class="col-md-6">
                                     <div class="card offer-card shadow-sm">
                                         <div class="card-body">
                                             <!-- Image taking full width of the container -->
                                             <img src="{{ asset('frontend/img/list/6.png') }}" class="img-fluid w-100"
-                                                alt="{{ $material->title }}">
-                                            <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}</h6>
+                                                alt="Risk Level">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Risk Level and Mitigation
+                                                Determination</h6>
                                             <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
                                             <a href="#" class="card-link">COPY CODE</a>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
 
-                        <!-- Key Performance Indicator (Record 16) -->
-                        <div class="row mb-4 pb-2">
-                            @foreach ($materials->slice(15, 1) as $material)
+                                <!-- Fourth Card -->
                                 <div class="col-md-6">
                                     <div class="card offer-card shadow-sm">
                                         <div class="card-body">
                                             <!-- Image taking full width of the container -->
                                             <img src="{{ asset('frontend/img/list/8.png') }}" class="img-fluid w-100"
-                                                alt="{{ $material->title }}">
-                                            <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}</h6>
+                                                alt="Key Performance Indicator">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Key Performance Indicator
+                                            </h6>
                                             <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
                                             <a href="#" class="card-link">COPY CODE</a>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
-
 
 
                         {{-- <!-- Third Row with Two Cards -->
