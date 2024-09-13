@@ -141,97 +141,126 @@
                             </div>
 
                         </div>
+                        <!-- Multi Criteria Decision Making (Records 1-7) -->
                         <div class="tab-pane fade" id="learning" role="tabpanel" aria-labelledby="learning-tab">
                             <h4 class="font-weight-bold mt-0 mb-4">Self-Paced Learning Material</h4>
-                            <div class="row mb-4 pb-2">
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><img src="img/bank/1.png"> MCDM</h5>
-                                            <h6 class="card-subtitle mb-2 text-block">Multi Criteria Decision Making
-                                            </h6>
-                                            {{-- <p class="card-text">Use code OSAHANEAT50 & get 50% off on your first
-                                                osahan order on Website and Mobile site. Maximum discount: $200</p> --}}
 
-                                            <!-- This link now directs to the user.materials route -->
-                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
-
-                                            <!-- Leave the other link unchanged or customize as needed -->
-                                            <a href="#" class="card-link">COPY CODE</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><img src="img/bank/2.png"> EAT730</h5>
-                                            <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first osahan
-                                                eat order</h6>
-                                            <p class="card-text">Use code EAT730 &amp; get 50% off on your first osahan
-                                                order on Website and Mobile site. Maximum discount: $600</p>
-                                            <a href="#" class="card-link">COPY CODE</a>
-                                            <a href="#" class="card-link">KNOW MORE</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- First Row with Two Cards -->
                             <div class="row mb-4 pb-2">
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><img src="img/bank/3.png"> SAHAN50</h5>
-                                            <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first osahan
-                                                eat order</h6>
-                                            <p class="card-text">Use code SAHAN50 &amp; get 50% off on your first
-                                                osahan order on Website and Mobile site. Maximum discount: $200</p>
-                                            <a href="#" class="card-link">COPY CODE</a>
-                                            <a href="#" class="card-link">KNOW MORE</a>
+                                @foreach ($materials->slice(0, 7) as $material)
+                                    <div class="col-md-6">
+                                        <div class="card offer-card shadow-sm">
+                                            <div class="card-body">
+                                                <!-- Image taking full width of the container -->
+                                                <img src="{{ asset('frontend/img/list/1.png') }}"
+                                                    class="img-fluid w-100" alt="{{ $material->title }}">
+                                                <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}
+                                                </h6>
+                                                <a href="{{ route('user.materials') }}" class="card-link">KNOW
+                                                    MORE</a>
+                                                <a href="#" class="card-link">COPY CODE</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><img src="img/bank/4.png"> GURDEEP50</h5>
-                                            <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first osahan
-                                                eat order</h6>
-                                            <p class="card-text">Use code GURDEEP50 &amp; get 50% off on your first
-                                                osahan order on Website and Mobile site. Maximum discount: $600</p>
-                                            <a href="#" class="card-link">COPY CODE</a>
-                                            <a href="#" class="card-link">KNOW MORE</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><img src="img/bank/1.png"> OSAHANEAT50</h5>
-                                            <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first osahan
-                                                eat order</h6>
-                                            <p class="card-text">Use code OSAHANEAT50 &amp; get 50% off on your first
-                                                osahan order on Website and Mobile site. Maximum discount: $200</p>
-                                            <a href="#" class="card-link">COPY CODE</a>
-                                            <a href="#" class="card-link">KNOW MORE</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><img src="img/bank/2.png"> EAT730</h5>
-                                            <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first osahan
-                                                eat order</h6>
-                                            <p class="card-text">Use code EAT730 &amp; get 50% off on your first osahan
-                                                order on Website and Mobile site. Maximum discount: $600</p>
-                                            <a href="#" class="card-link">COPY CODE</a>
-                                            <a href="#" class="card-link">KNOW MORE</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
+
+                        <!-- System Complexity (Records 8-11) -->
+                        <div class="row mb-4 pb-2">
+                            @foreach ($materials->slice(7, 4) as $material)
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- Image taking full width of the container -->
+                                            <img src="{{ asset('frontend/img/list/3.png') }}" class="img-fluid w-100"
+                                                alt="{{ $material->title }}">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}</h6>
+                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
+                                            <a href="#" class="card-link">COPY CODE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Risk Level and Mitigation Determination (Records 12-15) -->
+                        <div class="row mb-4 pb-2">
+                            @foreach ($materials->slice(11, 4) as $material)
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- Image taking full width of the container -->
+                                            <img src="{{ asset('frontend/img/list/6.png') }}" class="img-fluid w-100"
+                                                alt="{{ $material->title }}">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}</h6>
+                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
+                                            <a href="#" class="card-link">COPY CODE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Key Performance Indicator (Record 16) -->
+                        <div class="row mb-4 pb-2">
+                            @foreach ($materials->slice(15, 1) as $material)
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- Image taking full width of the container -->
+                                            <img src="{{ asset('frontend/img/list/8.png') }}" class="img-fluid w-100"
+                                                alt="{{ $material->title }}">
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">{{ $material->title }}</h6>
+                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
+                                            <a href="#" class="card-link">COPY CODE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+
+
+                        {{-- <!-- Third Row with Two Cards -->
+                                <div class="row mb-4 pb-2">
+                                    <!-- Fifth Card -->
+                                    <div class="col-md-6">
+                                        <div class="card offer-card shadow-sm">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><img src="{{ asset('img/bank/1.png') }}"
+                                                        alt="Discount"> OSAHANEAT50</h5>
+                                                <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first
+                                                    osahan
+                                                    eat order</h6>
+                                                <p class="card-text">Use code OSAHANEAT50 & get 50% off on your first
+                                                    osahan order on Website and Mobile site. Maximum discount: $200</p>
+                                                <a href="#" class="card-link">COPY CODE</a>
+                                                <a href="#" class="card-link">KNOW MORE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sixth Card -->
+                                    <div class="col-md-6">
+                                        <div class="card offer-card shadow-sm">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><img src="{{ asset('img/bank/2.png') }}"
+                                                        alt="Discount"> EAT730</h5>
+                                                <h6 class="card-subtitle mb-2 text-block">Get 50% OFF on your first
+                                                    osahan
+                                                    eat order</h6>
+                                                <p class="card-text">Use code EAT730 & get 50% off on your first osahan
+                                                    order on Website and Mobile site. Maximum discount: $600</p>
+                                                <a href="#" class="card-link">COPY CODE</a>
+                                                <a href="#" class="card-link">KNOW MORE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+
+
                         <div class="tab-pane fade" id="favourites" role="tabpanel" aria-labelledby="favourites-tab">
                             <h4 class="font-weight-bold mt-0 mb-4">Software Intermediaries</h4>
                             <div class="row">
@@ -246,7 +275,8 @@
                                         <div class="p-3 position-relative">
                                             <div class="list-card-body">
                                                 <h6 class="mb-1">
-                                                    <a href="detail.html" class="text-black">Fuzzy Analytical
+                                                    <a href="detail.html" class="text-black">Fuzzy
+                                                        Analytical
                                                         Hierarchy Process</a>
                                                 </h6>
                                                 <p class="text-gray mb-3">Initial Criteria</p>
@@ -262,7 +292,8 @@
                                             <div class="list-card-body">
                                                 <h6 class="mb-1"><a href="detail.html" class="text-black">System
                                                         Complexity</a></h6>
-                                                <p class="text-gray mb-3">Best Practice • Assets • Domain Mapping
+                                                <p class="text-gray mb-3">Best Practice • Assets •
+                                                    Domain Mapping
                                                     Matrix</p>
                                             </div>
 
@@ -277,7 +308,9 @@
                                             <div class="list-card-body">
                                                 <h6 class="mb-1"><a href="detail.html" class="text-black">Risk
                                                         Level Determination</a></h6>
-                                                <p class="text-gray mb-3">System Complexity • Impact • Exploitability
+                                                <p class="text-gray mb-3">System Complexity •
+                                                    Impact •
+                                                    Exploitability
                                                 </p>
                                             </div>
 
@@ -294,64 +327,70 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-
-                        <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
-                            <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="bg-white card addresses-item mb-4 border border-primary shadow">
-                                        <div class="gold-members p-4">
-                                            <div class="media">
-                                                <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1 text-secondary">Cyber Resilience Lab</h6>
-                                                    <p class="text-black">3rd Floor, Building A
-                                                        8916-5 Takayama, Ikoma, Nara 630-0192, Japan
-                                                    </p>
-                                                    <p class="mb-0 text-black font-weight-bold"><a
-                                                            class="text-primary mr-3" data-toggle="modal"
-                                                            data-target="#add-address-modal" href="#"><i
-                                                                class="icofont-ui-edit"></i> EDIT</a> <a
-                                                            class="text-danger" data-toggle="modal"
-                                                            data-target="#delete-address-modal" href="#"><i
-                                                                class="icofont-ui-delete"></i> DELETE</a></p>
-                                                </div>
+                    <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                        <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                                    <div class="gold-members p-4">
+                                        <div class="media">
+                                            <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="bg-white card addresses-item mb-4 shadow-sm">
-                                        <div class="gold-members p-4">
-                                            <div class="media">
-                                                <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i></div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">ICSCoE Japan</h6>
-                                                    <p>2-28-8 Honkomagome, Bunkyo-ku, Tokyo, Japan 113-6591
-                                                    </p>
-                                                    <p class="mb-0 text-black font-weight-bold"><a
-                                                            class="text-primary mr-3" data-toggle="modal"
-                                                            data-target="#add-address-modal" href="#"><i
-                                                                class="icofont-ui-edit"></i> EDIT</a> <a
-                                                            class="text-danger" data-toggle="modal"
-                                                            data-target="#delete-address-modal" href="#"><i
-                                                                class="icofont-ui-delete"></i> DELETE</a></p>
-                                                </div>
+                                            <div class="media-body">
+                                                <h6 class="mb-1 text-secondary">Cyber
+                                                    Resilience Lab</h6>
+                                                <p class="text-black">3rd Floor, Building A
+                                                    8916-5 Takayama, Ikoma, Nara 630-0192, Japan
+                                                </p>
+                                                <p class="mb-0 text-black font-weight-bold"><a
+                                                        class="text-primary mr-3" data-toggle="modal"
+                                                        data-target="#add-address-modal" href="#"><i
+                                                            class="icofont-ui-edit"></i>
+                                                        EDIT</a> <a class="text-danger" data-toggle="modal"
+                                                        data-target="#delete-address-modal" href="#"><i
+                                                            class="icofont-ui-delete"></i>
+                                                        DELETE</a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="col-md-6">
+                                <div class="bg-white card addresses-item mb-4 shadow-sm">
+                                    <div class="gold-members p-4">
+                                        <div class="media">
+                                            <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6 class="mb-1">ICSCoE Japan</h6>
+                                                <p>2-28-8 Honkomagome, Bunkyo-ku, Tokyo, Japan
+                                                    113-6591
+                                                </p>
+                                                <p class="mb-0 text-black font-weight-bold"><a
+                                                        class="text-primary mr-3" data-toggle="modal"
+                                                        data-target="#add-address-modal" href="#"><i
+                                                            class="icofont-ui-edit"></i>
+                                                        EDIT</a> <a class="text-danger" data-toggle="modal"
+                                                        data-target="#delete-address-modal" href="#"><i
+                                                            class="icofont-ui-delete"></i>
+                                                        DELETE</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
                     </div>
+
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
     </div>
