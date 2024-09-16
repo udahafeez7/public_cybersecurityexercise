@@ -66,6 +66,11 @@
                     Technical Software</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link text-left menu-item" id="postassessment-tab" data-toggle="tab" href="#postassessment"
+                    role="tab" aria-controls="postassessment" aria-selected="true">
+                    <i class="icofont-food-cart mr-2"></i> Post assessment</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-left menu-item" id="addresses-tab" data-toggle="tab" href="#addresses"
                     role="tab" aria-controls="addresses" aria-selected="false"><i
                         class="icofont-location-pin mr-2"></i> Addresses</a>

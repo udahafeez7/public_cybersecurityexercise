@@ -143,3 +143,9 @@ Route::middleware('admin')->group(function () {
 
 // Route to show all segmented materials in the dashboard
 Route::get('/user/materials', [UserLearningController::class, 'AllUserMaterials'])->name('user.materials');
+
+Route::prefix('tasks')->group(function () {
+    Route::get('/fuzzy-ahp', [UserLearningController::class, 'FuzzyAHP'])->name('tasks.fuzzy-ahp');
+    Route::get('/domain-mapping', [UserLearningController::class, 'DomainMapping'])->name('tasks.domain-mapping');
+    Route::get('/fuzzy-logic', [UserLearningController::class, 'FuzzyLogic'])->name('tasks.fuzzy-logic');
+});

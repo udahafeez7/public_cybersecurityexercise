@@ -15,4 +15,18 @@ class UserLearningController extends Controller
         // Return the view with materials data
         return view('user.materials', compact('materials'));
     }
+    public function FuzzyAHP()
+    {
+        return view('layouts.fuzzy-ahp');  // Reference with 'layouts' as the folder
+    }
+
+    public function DomainMapping()
+    {
+        return view('layouts.domain-mapping');  // Reference with 'layouts' as the folder
+    }
+
+    public function FuzzyLogic()
+    {
+        return view('layouts.fuzzy-logic');  // Reference with 'layouts' as the folder
+    }
 }
