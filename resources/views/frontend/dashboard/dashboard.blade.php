@@ -142,11 +142,12 @@
                                 <div class="col-md-6">
                                     <div class="card offer-card shadow-sm">
                                         <div class="card-body">
-                                            <img src="{{ asset('frontend/img/list/1.png') }}" class="img-fluid w-100"
+                                            <img src="{{ asset('frontend/img/list/2.png') }}" class="img-fluid w-100"
                                                 alt="MCDM">
-                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Multi Criteria Decision
-                                                Making</h6>
-                                            <a href="{{ route('user.materials') }}" class="card-link">KNOW MORE</a>
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Preloaded Learning Matrial
+                                            </h6>
+                                            <a href="{{ route('user.materials') }}" class="card-link">FIND OUT
+                                                MORE</a>
                                         </div>
                                     </div>
                                 </div>
@@ -162,12 +163,16 @@
                                     <div
                                         class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                         <div class="p-3 position-relative">
+                                            <!-- Image Section -->
+                                            <img src="{{ asset('frontend/img/list/1.png') }}"
+                                                alt="Multi Criteria Decision Making" class="w-100 mb-3 rounded">
+
                                             <div class="list-card-body">
                                                 <h6 class="mb-1">
-                                                    <a href="{{ route('tasks.fuzzy-ahp') }}" class="text-black">Fuzzy
-                                                        Analytical Hierarchy Process</a>
+                                                    <a href="{{ route('tasks.fuzzy-ahp') }}" class="text-black">Multi
+                                                        Criteria Decision Making</a>
                                                 </h6>
-                                                <p class="text-gray mb-3">Initial Criteria</p>
+                                                <p class="text-gray mb-3">STRIDE Objective Elements</p>
                                             </div>
                                         </div>
                                     </div>
@@ -178,6 +183,10 @@
                                     <div
                                         class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                         <div class="p-3 position-relative">
+                                            <!-- Image Section -->
+                                            <img src="{{ asset('frontend/img/list/3.png') }}" alt="System Complexity"
+                                                class="w-100 mb-3 rounded">
+
                                             <div class="list-card-body">
                                                 <h6 class="mb-1">
                                                     <a href="{{ route('tasks.domain-mapping') }}"
@@ -195,6 +204,10 @@
                                     <div
                                         class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                         <div class="p-3 position-relative">
+                                            <!-- Image Section -->
+                                            <img src="{{ asset('frontend/img/list/6.png') }}"
+                                                alt="Risk Level Determination" class="w-100 mb-3 rounded">
+
                                             <div class="list-card-body">
                                                 <h6 class="mb-1">
                                                     <a href="{{ route('tasks.fuzzy-logic') }}"
@@ -209,7 +222,7 @@
                             </div>
                         </div>
 
-                        <!-- Post-assessment Section (Newly Added) -->
+                        <!-- Post-assessment Section -->
                         <div class="tab-pane fade" id="postassessment" role="tabpanel"
                             aria-labelledby="postassessment-tab">
                             <h4 class="font-weight-bold mt-0 mb-4">Post Training Activities</h4>
@@ -229,7 +242,8 @@
                                                 <p class="text-black mb-1"><i class="icofont-location-arrow"></i>
                                                     Conduct final knowledge assessment</p>
                                                 <p class="text-gray mb-3"><i class="icofont-clock-time ml-2"></i>
-                                                    <span id="order-time"></span></p>
+                                                    <span id="order-time"></span>
+                                                </p>
 
                                                 <script>
                                                     function formatDateToJapanTime() {
@@ -259,6 +273,56 @@
                                             </div>
                                         </div>
                                     </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Addresses Section -->
+                        <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                            <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                                        <div class="gold-members p-4">
+                                            <div class="media">
+                                                <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1 text-secondary">Cyber Resilience Lab</h6>
+                                                    <p class="text-black">3rd Floor, Building A, 8916-5 Takayama,
+                                                        Ikoma, Nara 630-0192, Japan</p>
+                                                    <p class="mb-0 text-black font-weight-bold">
+                                                        <a class="text-primary mr-3" data-toggle="modal"
+                                                            data-target="#add-address-modal" href="#"><i
+                                                                class="icofont-ui-edit"></i> EDIT</a>
+                                                        <a class="text-danger" data-toggle="modal"
+                                                            data-target="#delete-address-modal" href="#"><i
+                                                                class="icofont-ui-delete"></i> DELETE</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="bg-white card addresses-item mb-4 shadow-sm">
+                                        <div class="gold-members p-4">
+                                            <div class="media">
+                                                <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i></div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">ICSCoE Japan</h6>
+                                                    <p>2-28-8 Honkomagome, Bunkyo-ku, Tokyo, Japan 113-6591</p>
+                                                    <p class="mb-0 text-black font-weight-bold">
+                                                        <a class="text-primary mr-3" data-toggle="modal"
+                                                            data-target="#add-address-modal" href="#"><i
+                                                                class="icofont-ui-edit"></i> EDIT</a>
+                                                        <a class="text-danger" data-toggle="modal"
+                                                            data-target="#delete-address-modal" href="#"><i
+                                                                class="icofont-ui-delete"></i> DELETE</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
