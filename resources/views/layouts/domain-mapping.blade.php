@@ -14,7 +14,47 @@
         }
 
         h2 {
-            color: #333;
+            color: red;
+            position: relative;
+            display: inline-block;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        h2:hover {
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Hover box styling */
+        #hover-box,
+        #hover-box-complexity {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            top: 40px;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 0.85em;
+            transition: font-size 0.2s ease;
+        }
+
+        /* Magnify the hover box text when hovering within */
+        #hover-box:hover,
+        #hover-box-complexity:hover {
+            font-size: 1.1em;
+        }
+
+        h2:hover #hover-box,
+        h2#complexity-title:hover #hover-box-complexity {
+            display: block;
         }
 
         form {
@@ -201,11 +241,20 @@
 </head>
 
 <body>
-    <h2>Singular Value Decomposition</h2>
+    <!-- Singular Value Decomposition Hover -->
+    <h2 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">System Complexity - Singular Value Decomposition
+        <div id="hover-box">
+            This is a structured framework that maps provisioned assets to best practices.<br>
+            ドメインマッピングマトリックスは、ハードウェア、ソフトウェア、サービスなどのプロビジョニングされた資産を、
+            その関連するベストプラクティスに対応させるための構造化されたフレームワークです。
+        </div>
+    </h2>
+
     <form id="dimension-form">
         <label for="rows">Number of Rows:</label>
-        <input type="number" id="rows" name="rows" min="1" value="3" onfocus="showHint('rows-hint')">
-        <div id="rows-hint" class="hint">Indicating the number of Best Practices that we adhere</div>
+        <input type="number" id="rows" name="rows" min="1" value="3"
+            onfocus="showHint('rows-hint')">
+        <div id="rows-hint" class="hint">Indicating the number of Best Practices that we adhere to</div>
         <label for="cols">Number of Columns:</label>
         <input type="number" id="cols" name="cols" min="1" value="3"
             onfocus="showHint('cols-hint')">
@@ -219,46 +268,58 @@
         <button type="button" id="reset-button">Reset</button>
     </form>
 
-    <h2>System Complexity</h2>
+    <!-- System Complexity Hover -->
+    <h2 id="complexity-title" onmouseover="showHoverBoxComplexity()" onmouseout="hideHoverBoxComplexity()">System
+        Complexity
+        <div id="hover-box-complexity">
+            Generating the System Complexity by leveraging singular value decomposition and Normalized Value from
+            Multi-criteria Decision Making.<br>
+            システムの複雑性を生成するために、特異値分解とマルチ基準意思決定からの正規化値を活用します。
+        </div>
+    </h2>
+
     <form id="complexity-form" onsubmit="return computeComplexity();">
         <div class="input-group">
             <label for="availability">Availability</label>
             <input type="number" id="availability" min="0" max="1" step="0.0001" value="0"
-                onfocus="showHint('availability-hint')">
-            <div id="availability-hint" class="hint">Indicating the scores of Availability from Fuzzy AHP</div>
+                oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="non_repudiation">Non-Repudiation</label>
             <input type="number" id="non_repudiation" min="0" max="1" step="0.0001" value="0"
-                onfocus="showHint('non-repudiation-hint')">
-            <div id="non-repudiation-hint" class="hint">Indicating the scores of Non-Repudiation from Fuzzy AHP</div>
+                oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="integrity">Integrity</label>
             <input type="number" id="integrity" min="0" max="1" step="0.0001" value="0"
-                onfocus="showHint('integrity-hint')">
-            <div id="integrity-hint" class="hint">Indicating the scores of Integrity from Fuzzy AHP</div>
+                oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="authentication">Authentication</label>
             <input type="number" id="authentication" min="0" max="1" step="0.0001" value="0"
-                onfocus="showHint('authentication-hint')">
-            <div id="authentication-hint" class="hint">Indicating the scores of Authentication from Fuzzy AHP</div>
+                oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="authorization">Authorization</label>
             <input type="number" id="authorization" min="0" max="1" step="0.0001" value="0"
-                onfocus="showHint('authorization-hint')">
-            <div id="authorization-hint" class="hint">Indicating the scores of Authorization from Fuzzy AHP</div>
+                oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="confidentiality">Confidentiality</label>
             <input type="number" id="confidentiality" min="0" max="1" step="0.0001" value="0"
-                onfocus="showHint('confidentiality-hint')">
-            <div id="confidentiality-hint" class="hint">Indicating the scores of Confidentiality from Fuzzy AHP</div>
+                oninput="calculateTotalComplexity()">
+        </div>
+
+        <!-- Display total complexity sum -->
+        <div class="input-group">
+            <label for="total_complexity">Total Complexity</label>
+            <input type="number" id="total_complexity" disabled value="0">
         </div>
         <div class="error" id="input-error">The sum of all inputs must be 1.</div>
-        <button type="submit">Compute Complexity</button>
+
+        <!-- Buttons for Complexity -->
+        <button type="submit" id="compute-complexity">Compute Complexity</button>
+        <button type="button" id="reset-complexity" onclick="resetComplexityInputs()">Reset</button>
     </form>
 
     <div class="result" id="result" style="display: none;">
@@ -268,7 +329,6 @@
             <li><span>Component:</span> <span id="component"></span></li>
             <li><span>Interface:</span> <span id="interface"></span></li>
             <li><span>Architecture:</span> <span id="architecture"></span></li>
-
         </ul>
     </div>
 
@@ -331,6 +391,60 @@
             setTimeout(() => {
                 hintElement.style.display = 'none';
             }, 3000);
+        }
+
+        function showHoverBox() {
+            const hoverBox = document.getElementById('hover-box');
+            hoverBox.style.display = 'block';
+        }
+
+        function hideHoverBox() {
+            const hoverBox = document.getElementById('hover-box');
+            hoverBox.style.display = 'none';
+        }
+
+        function showHoverBoxComplexity() {
+            const hoverBox = document.getElementById('hover-box-complexity');
+            hoverBox.style.display = 'block';
+        }
+
+        function hideHoverBoxComplexity() {
+            const hoverBox = document.getElementById('hover-box-complexity');
+            hoverBox.style.display = 'none';
+        }
+
+        // Calculate total complexity score
+        function calculateTotalComplexity() {
+            const availability = parseFloat(document.getElementById('availability').value) || 0;
+            const nonRepudiation = parseFloat(document.getElementById('non_repudiation').value) || 0;
+            const integrity = parseFloat(document.getElementById('integrity').value) || 0;
+            const authentication = parseFloat(document.getElementById('authentication').value) || 0;
+            const authorization = parseFloat(document.getElementById('authorization').value) || 0;
+            const confidentiality = parseFloat(document.getElementById('confidentiality').value) || 0;
+
+            const total = availability + nonRepudiation + integrity + authentication + authorization + confidentiality;
+            document.getElementById('total_complexity').value = total.toFixed(4);
+
+            if (total !== 1) {
+                document.getElementById('compute-complexity').disabled = true;
+                document.getElementById('input-error').style.display = 'block';
+            } else {
+                document.getElementById('compute-complexity').disabled = false;
+                document.getElementById('input-error').style.display = 'none';
+            }
+        }
+
+        // Reset input fields for complexity
+        function resetComplexityInputs() {
+            document.getElementById('availability').value = 0;
+            document.getElementById('non_repudiation').value = 0;
+            document.getElementById('integrity').value = 0;
+            document.getElementById('authentication').value = 0;
+            document.getElementById('authorization').value = 0;
+            document.getElementById('confidentiality').value = 0;
+            document.getElementById('total_complexity').value = 0;
+            document.getElementById('input-error').style.display = 'none';
+            document.getElementById('compute-complexity').disabled = true;
         }
     </script>
 </body>

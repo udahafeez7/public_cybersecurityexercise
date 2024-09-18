@@ -24,12 +24,53 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
         }
 
         h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
+            color: red;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        h1:hover {
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Hover box styling */
+        #hover-box {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            /* Make the hover box as wide as the container */
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 0.8em;
+            /* Slightly smaller text size */
+            transition: font-size 0.2s ease;
+        }
+
+        /* Magnify the hover box text when hovering within */
+        #hover-box:hover {
+            font-size: 1em;
+        }
+
+        h1:hover #hover-box {
+            display: block;
         }
 
         .input-group {
@@ -43,7 +84,6 @@
         label {
             font-weight: bold;
             width: 200px;
-            /* Adjust label width to ensure alignment */
         }
 
         .slider-container {
@@ -103,7 +143,13 @@
 <body>
 
     <div class="container">
-        <h1>Fuzzy Logic Risk Assessment</h1>
+        <h1 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">Fuzzy Logic Risk Assessment
+            <div id="hover-box">
+                Estimating the risk level by combining system complexity from system and accumulated Impact, base score,
+                and exploitability from Adversary Party.<br>
+                システムの複雑性と敵対者パーティーからの影響、ベーススコア、および悪用可能性を組み合わせて、リスクレベルを推定します。
+            </div>
+        </h1>
 
         <!-- System Complexity Slider -->
         <div class="input-group">
@@ -165,6 +211,15 @@
     </div>
 
     <script src="{{ asset('js/scripts2.js') }}"></script>
+    <script>
+        function showHoverBox() {
+            document.getElementById('hover-box').style.display = 'block';
+        }
+
+        function hideHoverBox() {
+            document.getElementById('hover-box').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>

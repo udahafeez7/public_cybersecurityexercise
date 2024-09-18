@@ -130,6 +130,7 @@ function setupMatrix() {
 }
 
 function resetMatrix() {
+    // Reset the matrix inputs
     for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 6; j++) {
             let cell = document.getElementById(`cell-${i}-${j}`);
@@ -142,9 +143,28 @@ function resetMatrix() {
             }
         }
     }
-    updateSum();
+
+    // Reset the sum values
+    for (let j = 0; j < 6; j++) {
+        document.getElementById(`sum-${j}`).textContent = '0.00';
+    }
+
+    // Reset the linguistic variables table
     updateLinguisticVariables();
+
+    // Hide the Fuzzy AHP Results table
+    document.getElementById('result').style.display = 'none';
+
+    // Hide and clear the Priority Table
+    document.getElementById('priority-table-container').style.display = 'none';
+    const priorityTable = document.getElementById('priority-table').querySelector('tbody');
+    priorityTable.innerHTML = ''; // Clear the Priority Table content
+
+    // Reset the sums in Fuzzy AHP Results
+    document.getElementById('sum-normalized').textContent = '0.0';
+    document.getElementById('sum-center').textContent = '0.0';
 }
+
 
 function editMatrix() {
     for (let i = 0; i < 6; i++) {
@@ -174,8 +194,28 @@ function updateLinguisticVariables() {
     }
 }
 
+function createPriorityTable(normalizedValues) {
+    // Sort normalizedValues by the value in descending order
+    normalizedValues.sort((a, b) => parseFloat(b.value) - parseFloat(a.value));
+
+    const priorityTable = document.getElementById('priority-table').querySelector('tbody');
+    priorityTable.innerHTML = ''; // Clear any previous content
+
+    normalizedValues.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.value}</td>
+            <td>${item.criterion}</td>
+            <td>${index + 1}</td>
+        `;
+        priorityTable.appendChild(row);
+    });
+
+    // Display the priority table
+    document.getElementById('priority-table-container').style.display = 'block';
+}
+
 document.getElementById('compute-ahp').addEventListener('click', function() {
-    // Extract matrix values and convert to linguistic variables
     const matrix = [
         [0, 1, 2, 3, 4, 5].map(col => parseFloat(document.getElementById(`cell-0-${col}`).value) || 1),
         [0, 1, 2, 3, 4, 5].map(col => parseFloat(document.getElementById(`cell-1-${col}`).value) || 1),
@@ -221,23 +261,25 @@ document.getElementById('compute-ahp').addEventListener('click', function() {
     const sumCenterOfArea = centerOfAreas.reduce((acc, val) => acc + parseFloat(val), 0).toFixed(3);
 
     // Calculate the normalized values
-    const normalizedValues = centerOfAreas.map(val => (parseFloat(val) / sumCenterOfArea).toFixed(3));
+    const normalizedValues = centerOfAreas.map((val, index) => ({
+        value: (parseFloat(val) / sumCenterOfArea).toFixed(4),
+        criterion: ['Confidentiality', 'Integrity', 'Availability', 'Authentication', 'Authorization', 'Non-Repudiation'][index]
+    }));
 
-    // Display results
+    // Display results in the Fuzzy AHP Results table
     const resultOutput = document.getElementById('result-output');
     resultOutput.innerHTML = '';
-    const criteria = ['Confidentiality', 'Integrity', 'Availability', 'Authentication', 'Authorization', 'Non-Repudiation'];
-    criteria.forEach((criterion, index) => {
+    normalizedValues.forEach((item, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${criterion}</td>
+            <td>${item.criterion}</td>
             <td>${sums[index].toFixed(2)}</td>
             <td>${matrix[index].map(val => `(${linguisticMapping[val.toString()]?.join(', ')})`).join(', ')}</td>
             <td>(${fuzzyGeometricMeans[index].join(', ')})</td>
             <td>(${fuzzyWeightCriteria.join(', ')})</td>
             <td>(${defuzzifications[index].join(', ')})</td>
             <td>${centerOfAreas[index]}</td>
-            <td>${normalizedValues[index]}</td>
+            <td>${item.value}</td>
         `;
         resultOutput.appendChild(row);
     });
@@ -245,7 +287,9 @@ document.getElementById('compute-ahp').addEventListener('click', function() {
     document.getElementById('sum-center').textContent = sumCenterOfArea;
     document.getElementById('sum-normalized').textContent = '1.0';  // Ensure sum of normalized values is always 1
     document.getElementById('result').style.display = 'block';
-    updateLinguisticVariables();
+
+    // Now generate the new priority table
+    createPriorityTable(normalizedValues);
 });
 
 document.getElementById('reset-button').addEventListener('click', function() {
@@ -259,3 +303,4 @@ document.getElementById('reset-button').addEventListener('click', function() {
 window.onload = function() {
     setupMatrix();
 };
+
