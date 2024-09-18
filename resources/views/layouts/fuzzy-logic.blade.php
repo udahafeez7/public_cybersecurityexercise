@@ -145,9 +145,11 @@
     <div class="container">
         <h1 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">Fuzzy Logic Risk Assessment
             <div id="hover-box">
-                Estimating the risk level by combining system complexity from system and accumulated Impact, base score,
-                and exploitability from Adversary Party.<br>
-                システムの複雑性と敵対者パーティーからの影響、ベーススコア、および悪用可能性を組み合わせて、リスクレベルを推定します。
+                The risk level is estimated by combining the system complexity and three aspect namely impact, base
+                score and
+                exploitability using Common Vulnerability Enumeration.
+                <br><br>
+                リスクレベルは、共通脆弱性列挙法を用いて、システムの複雑さと、影響度、基本スコア、悪用可能性の3つの側面を組み合わせて推定される。
             </div>
         </h1>
 

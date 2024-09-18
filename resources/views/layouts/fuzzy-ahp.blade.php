@@ -98,13 +98,16 @@
 
     <!-- Description box -->
     <div id="description-box">
-        In today's cloud computing world, containerized orchestration is essential for scalability, efficiency, and
-        optimizing resources. However, it faces security risks, especially in AWS. To manage these risks, we use the
-        fuzzy AHP method with the STRIDE model for decision-making.
+        Fuzzy AHP is a decision-making method that helps prioritize objective elements, such as Confidentiality,
+        Integrity, Availability,
+        Authentication, Authorization, and Non-Repudiation, based on user inputs guided by expert opinions. it allows
+        for handling uncertainty
+        and ambiguity in judgments, providing a more accurate prioritization across multiple criteria, ensuring a
+        comprehensive evaluation
+        of security factors.
         <br><br>
-        現代のクラウドコンピューティング環境では、コンテナオーケストレーションはスケーラビリティ、効率性、およびリソースの最適化において重要な役割を果たしています。
-        しかし、特にAWS環境では、さまざまなセキュリティリスクにさらされています。これらのリスクを効果的に評価するために、意思決定の枠組みとして
-        STRIDEモデルを使用し、ファジーAHP手法を採用しています。
+        ファジーAHPは、専門家の意見に導かれたユーザー入力に基づいて、機密性、完全性、可用性、認証、認可、否認防止などの客観的要素の優先順位付けを支援する意思決定手法である。
+        ファジーAHPは、判断の不確実性やあいまいさを処理することを可能にし、複数の基準にわたってより正確な優先順位付けを提供し、セキュリティ要素の包括的な評価を保証する。
     </div>
 
     <table id="matrix">
@@ -224,7 +227,7 @@
 
     <!-- Linguistic Variables Table -->
     <div id="linguistic-variables">
-        <h3>Linguistic Variables for Pairwise Comparison</h3>
+        <h3 style="text-align: center;">Linguistic Variables for Pairwise Comparison</h3>
         <table id="linguistic-matrix">
             <thead>
                 <tr>
@@ -243,7 +246,7 @@
     </div>
 
     <div id="result" style="display: none;">
-        <h3>Fuzzy AHP Results</h3>
+        <h3 style="text-align: center;">Fuzzy AHP Results</h3>
         <table>
             <thead>
                 <tr>
@@ -269,7 +272,7 @@
 
     <!-- Priority Table -->
     <div id="priority-table-container" style="display:none;">
-        <h3>Priority Table</h3>
+        <h3 style="text-align: center;">Priority Table</h3>
         <table id="priority-table">
             <thead>
                 <tr>
@@ -281,6 +284,7 @@
             <tbody></tbody>
         </table>
     </div>
+
 
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script>
@@ -372,7 +376,7 @@
                 setTimeout(function() {
                     descriptionBox.style.display = "none";
                 }, 500); // Wait for opacity transition before hiding completely
-            }, 5000); // 10-second delay
+            }, 7000); // 10-second delay
         }
     </script>
 

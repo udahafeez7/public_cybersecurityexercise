@@ -242,11 +242,14 @@
 
 <body>
     <!-- Singular Value Decomposition Hover -->
-    <h2 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">System Complexity - Singular Value Decomposition
+    <h2 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">Complexity Aspect - Singular Value Decomposition
         <div id="hover-box">
-            This is a structured framework that maps provisioned assets to best practices.<br>
-            ドメインマッピングマトリックスは、ハードウェア、ソフトウェア、サービスなどのプロビジョニングされた資産を、
-            その関連するベストプラクティスに対応させるための構造化されたフレームワークです。
+            The Complexity Aspects aim on generating three key components: Component, Interfaces, and Architecture,
+            by applying linear algebra techniques such as Singular Value Decomposition (SVD). These aspects help in
+            constructing System Complexity.
+            <br><br>
+            複雑性の側面は、3つの主要なコンポーネントを生成することを目的としている： SVD（特異値分解）のような線形代数技術を適用することで、
+            コンポーネント、インターフェイス、アーキテクチャの3つの主要コンポーネントを生成します。これらの側面は、システムの複雑性を構築するのに役立ちます。
         </div>
     </h2>
 
@@ -272,9 +275,10 @@
     <h2 id="complexity-title" onmouseover="showHoverBoxComplexity()" onmouseout="hideHoverBoxComplexity()">System
         Complexity
         <div id="hover-box-complexity">
-            Generating the System Complexity by leveraging singular value decomposition and Normalized Value from
-            Multi-criteria Decision Making.<br>
-            システムの複雑性を生成するために、特異値分解とマルチ基準意思決定からの正規化値を活用します。
+            Aim to Generate the System Complexity by leveraging Complexity Aspects and Normalized Value from
+            Multi-criteria Decision Making.
+            <br><br>
+            多基準の意思決定から複雑性の側面と正規化された値を活用することにより、システムの複雑性を生成することを目指す。
         </div>
     </h2>
 
