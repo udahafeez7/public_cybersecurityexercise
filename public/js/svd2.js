@@ -117,10 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validate input values and show pop-up
     window.validateInput = function (input) {
         const value = parseFloat(input.value);
-        if (value < 1 || value > 3) {
+        if (value < 0 || value > 3) {
             input.style.backgroundColor = 'red';
             input.value = ''; // Clear invalid input
-            alert('The value must be between 1 and 3');
+            alert('The value must be between 0 and 3');
         } else {
             input.style.backgroundColor = '';
         }

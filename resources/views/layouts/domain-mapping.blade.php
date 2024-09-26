@@ -244,7 +244,7 @@
     <!-- Singular Value Decomposition Hover -->
     <h2 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">Complexity Aspect - Singular Value Decomposition
         <div id="hover-box">
-            The Complexity Aspects aim on generating three key components: Component, Interfaces, and Architecture,
+            The Complexity Aspects aim on generating three key things: Component, Interfaces, and Architecture,
             by applying linear algebra techniques such as Singular Value Decomposition (SVD). These aspects help in
             constructing System Complexity.
             <br><br>
@@ -262,6 +262,7 @@
         <input type="number" id="cols" name="cols" min="1" value="3"
             onfocus="showHint('cols-hint')">
         <div id="cols-hint" class="hint">Indicating the number of current assets that we have</div>
+        <br><br>
         <button type="submit">Generate Matrix</button>
     </form>
 
@@ -270,7 +271,15 @@
         <button type="submit">Compute SVD</button>
         <button type="button" id="reset-button">Reset</button>
     </form>
-
+    <div class="result" id="result" style="display: none;">
+        <h3>Complexity Results</h3>
+        <ul>
+            <li><span>Singular Values:</span> <span id="singular-values"></span></li>
+            <li><span>Component:</span> <span id="component"></span></li>
+            <li><span>Interface:</span> <span id="interface"></span></li>
+            <li><span>Architecture:</span> <span id="architecture"></span></li>
+        </ul>
+    </div>
     <!-- System Complexity Hover -->
     <h2 id="complexity-title" onmouseover="showHoverBoxComplexity()" onmouseout="hideHoverBoxComplexity()">System
         Complexity
@@ -326,15 +335,7 @@
         <button type="button" id="reset-complexity" onclick="resetComplexityInputs()">Reset</button>
     </form>
 
-    <div class="result" id="result" style="display: none;">
-        <h3>Results</h3>
-        <ul>
-            <li><span>Singular Values:</span> <span id="singular-values"></span></li>
-            <li><span>Component:</span> <span id="component"></span></li>
-            <li><span>Interface:</span> <span id="interface"></span></li>
-            <li><span>Architecture:</span> <span id="architecture"></span></li>
-        </ul>
-    </div>
+
 
     <div class="result" id="complexity-result" style="display: none;">
         <h3>Complexity Calculation</h3>

@@ -219,6 +219,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4 col-sm-6 mb-4 pb-2">
+                                    <div
+                                        class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+                                        <div class="p-3 position-relative">
+                                            <!-- Image Section -->
+                                            <img src="{{ asset('frontend/img/list/10.png') }}"
+                                                alt="Risk Level Determination" class="w-100 mb-3 rounded">
+
+                                            <div class="list-card-body">
+                                                <h6 class="mb-1">
+                                                    <a href="{{ route('tasks.cost_benefit_analysis') }}"
+                                                        class="text-black">Cost Benefit Analysis</a>
+                                                </h6>
+                                                <p class="text-gray mb-3">Cost • Benefit • Assumptions
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

@@ -148,4 +148,5 @@ Route::prefix('tasks')->group(function () {
     Route::get('/fuzzy-ahp', [UserLearningController::class, 'FuzzyAHP'])->name('tasks.fuzzy-ahp');
     Route::get('/domain-mapping', [UserLearningController::class, 'DomainMapping'])->name('tasks.domain-mapping');
     Route::get('/fuzzy-logic', [UserLearningController::class, 'FuzzyLogic'])->name('tasks.fuzzy-logic');
+    Route::get('/cost_benefit_analysis', [UserLearningController::class, 'CostBenefitAnalysis'])->name('tasks.cost_benefit_analysis');
 });

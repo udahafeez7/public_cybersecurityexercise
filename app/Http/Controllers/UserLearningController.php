@@ -29,4 +29,8 @@ class UserLearningController extends Controller
     {
         return view('layouts.fuzzy-logic');  // Reference with 'layouts' as the folder
     }
+    public function CostBenefitAnalysis()
+    {
+        return view('layouts.cost_benefit_analysis');  // Reference with 'layouts' as the folder
+    }
 }
