@@ -56,11 +56,9 @@
             top: 60px;
             left: 0;
             width: 100%;
-            /* Make the hover box as wide as the container */
             box-sizing: border-box;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             font-size: 0.8em;
-            /* Slightly smaller text size */
             transition: font-size 0.2s ease;
         }
 
@@ -69,8 +67,16 @@
             font-size: 1em;
         }
 
-        h1:hover #hover-box {
-            display: block;
+        /* Style for the question mark near the title */
+        .tooltip-icon {
+            font-size: 0.8em;
+            /* Smaller size */
+            cursor: pointer;
+            margin-left: 5px;
+            /* Closer to the title */
+            color: gray;
+            vertical-align: super;
+            /* Align it higher like a superscript */
         }
 
         .input-group {
@@ -143,24 +149,27 @@
 <body>
 
     <div class="container">
-        <h1 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">Fuzzy Logic Risk Assessment
+        <!-- Fuzzy Logic Risk Assessment Title with Question Mark -->
+        <h1>Fuzzy Logic Risk Assessment
+            <span class="tooltip-icon" onclick="toggleHoverBox()">❓</span> <!-- Clickable Question Mark -->
             <div id="hover-box">
-                The risk level is estimated by combining the system complexity and three aspect namely impact, base
-                score and
+                The risk level is estimated by combining the system complexity and three aspects: impact, base score,
+                and
                 exploitability using Common Vulnerability Enumeration.
                 <br><br>
                 リスクレベルは、共通脆弱性列挙法を用いて、システムの複雑さと、影響度、基本スコア、悪用可能性の3つの側面を組み合わせて推定される。
             </div>
         </h1>
 
-        <!-- System Complexity Slider -->
+        <!-- Reduced Complexity Information Slider -->
         <div class="input-group">
-            <label for="system_complexity">System Complexity</label>
+            <label for="system_complexity">Reduced Complexity Information</label>
             <div class="slider-container">
                 <input type="range" id="system_complexity" min="0" max="100" value="0"
                     oninput="syncInput('system_complexity')">
                 <input type="number" id="system_complexity_input" min="0" max="100" value="0"
                     oninput="syncRange('system_complexity')">
+                <span class="tooltip-icon" onclick="showTooltip('system_complexity')">❓</span>
             </div>
         </div>
 
@@ -172,6 +181,7 @@
                     oninput="syncInput('impact')">
                 <input type="number" id="impact_input" min="0" max="10" step="0.1" value="0"
                     oninput="syncRange('impact')">
+                <span class="tooltip-icon" onclick="showTooltip('impact')">❓</span>
             </div>
         </div>
 
@@ -183,6 +193,7 @@
                     oninput="syncInput('base_score')">
                 <input type="number" id="base_score_input" min="0" max="10" step="0.1" value="0"
                     oninput="syncRange('base_score')">
+                <span class="tooltip-icon" onclick="showTooltip('base_score')">❓</span>
             </div>
         </div>
 
@@ -194,6 +205,7 @@
                     oninput="syncInput('exploitability')">
                 <input type="number" id="exploitability_input" min="0" max="10" step="0.1"
                     value="0" oninput="syncRange('exploitability')">
+                <span class="tooltip-icon" onclick="showTooltip('exploitability')">❓</span>
             </div>
         </div>
 
@@ -214,6 +226,15 @@
 
     <script src="{{ asset('js/scripts2.js') }}"></script>
     <script>
+        function toggleHoverBox() {
+            const hoverBox = document.getElementById('hover-box');
+            if (hoverBox.style.display === 'block') {
+                hoverBox.style.display = 'none';
+            } else {
+                hoverBox.style.display = 'block';
+            }
+        }
+
         function showHoverBox() {
             document.getElementById('hover-box').style.display = 'block';
         }

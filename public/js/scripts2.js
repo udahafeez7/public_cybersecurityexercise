@@ -4,7 +4,6 @@ document.addEventListener('input', function (event) {
         const spanId = rangeId + '_value';
         document.getElementById(spanId).textContent = event.target.value;
         flashLabel(rangeId);
-        showTooltip(rangeId, event.target.value);
     }
 });
 
@@ -16,7 +15,8 @@ function flashLabel(id) {
     }, 500);
 }
 
-function showTooltip(id, value) {
+// Add function for showing tooltip on click
+function showTooltip(id) {
     const tooltipId = 'tooltip_' + id;
     let tooltip = document.getElementById(tooltipId);
 
@@ -29,23 +29,31 @@ function showTooltip(id, value) {
 
     switch(id) {
         case 'system_complexity':
-            tooltip.textContent = `System Complexity: Accumulated from Domain Mapping Matrix (${value})`;
+            tooltip.textContent = `Reduced Complexity Information: Accumulated from Domain Mapping Matrix.`;
             break;
         case 'impact':
-            tooltip.textContent = `Impact: Accumulated adversarial impact (${value})`;
+            tooltip.textContent = `Impact: Accumulated adversarial impact.`;
             break;
         case 'base_score':
-            tooltip.textContent = `Base Score: Accumulated adversarial base score (${value})`;
+            tooltip.textContent = `Base Score: Accumulated adversarial base score.`;
             break;
         case 'exploitability':
-            tooltip.textContent = `Exploitability: Accumulated exploitability score (${value})`;
+            tooltip.textContent = `Exploitability: Accumulated exploitability score.`;
             break;
     }
 
-    tooltip.style.opacity = 1;
+    tooltip.style.display = 'block';
     setTimeout(() => {
-        tooltip.style.opacity = 0;
-    }, 3000);
+        tooltip.style.display = 'none';
+    }, 5000); // Auto-hide after 5 seconds
+}
+
+function hideTooltip(id) {
+    const tooltipId = 'tooltip_' + id;
+    const tooltip = document.getElementById(tooltipId);
+    if (tooltip) {
+        tooltip.style.display = 'none';
+    }
 }
 
 function trapezoidalMembership(x, a, b, c, d) {
@@ -61,7 +69,6 @@ function syncInput(id) {
     input.value = range.value;
     document.getElementById(id + '_value').textContent = range.value;
     flashLabel(id);
-    showTooltip(id, range.value);
 }
 
 function syncRange(id) {
@@ -70,7 +77,6 @@ function syncRange(id) {
     range.value = input.value;
     document.getElementById(id + '_value').textContent = input.value;
     flashLabel(id);
-    showTooltip(id, input.value);
 }
 
 function computeRisk() {
@@ -79,7 +85,7 @@ function computeRisk() {
     const base_score = parseFloat(document.getElementById('base_score').value);
     const exploitability = parseFloat(document.getElementById('exploitability').value);
 
-    // Membership functions for system complexity
+    // Membership functions for reduced complexity information
     const systemComplexityLow = trapezoidalMembership(system_complexity, 1, 1, 8, 15);
     const systemComplexityMedium = trapezoidalMembership(system_complexity, 10, 15, 18, 25);
     const systemComplexityHigh = trapezoidalMembership(system_complexity, 20, 25, 45, 55);
@@ -103,17 +109,19 @@ function computeRisk() {
     const exploitabilityHigh = trapezoidalMembership(exploitability, 6.5, 7.5, 8.5, 9.5);
     const exploitabilityCritical = trapezoidalMembership(exploitability, 9, 9.5, 10, 10);
 
-    // Apply fuzzy rules (Mamdani technique)
+    // Apply fuzzy rules (including additional rules)
     const rule1 = Math.min(systemComplexityLow, impactLow, baseScoreLow, exploitabilityLow);
     const rule2 = Math.min(systemComplexityMedium, impactMedium, baseScoreMedium, exploitabilityMedium);
     const rule3 = Math.min(systemComplexityHigh, impactHigh, baseScoreHigh, exploitabilityHigh);
     const rule4 = Math.min(systemComplexityVeryHigh, impactCritical, baseScoreCritical, exploitabilityCritical);
     const rule5 = Math.min(systemComplexityHigh, impactMedium, baseScoreLow, exploitabilityHigh);
     const rule6 = Math.min(systemComplexityHigh, impactMedium, baseScoreLow, exploitabilityMedium);
+    const rule7 = Math.min(systemComplexityMedium, impactCritical, baseScoreMedium, exploitabilityMedium);
+    const rule8 = Math.min(systemComplexityLow, impactHigh, baseScoreLow, exploitabilityHigh);
 
     // Aggregating risk values (Defuzzification using weighted average)
-    const riskValue = (rule1 * 20 + rule2 * 55 + rule3 * 80 + rule4 * 100 + rule5 * 80 + rule6 * 55) /
-        (rule1 + rule2 + rule3 + rule4 + rule5 + rule6);
+    const riskValue = (rule1 * 20 + rule2 * 55 + rule3 * 80 + rule4 * 100 + rule5 * 80 + rule6 * 55 + rule7 * 75 + rule8 * 30) /
+        (rule1 + rule2 + rule3 + rule4 + rule5 + rule6 + rule7 + rule8);
 
     // Determine the risk level
     let riskLevel = '';
@@ -182,3 +190,4 @@ function updateChart(riskValue) {
     }
     riskChart.update();
 }
+

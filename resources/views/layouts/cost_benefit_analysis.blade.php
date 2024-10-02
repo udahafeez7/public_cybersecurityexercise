@@ -5,10 +5,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cost-Benefit Analysis</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Tooltip styling */
+        .tooltip-icon {
+            font-size: 0.8em;
+            cursor: pointer;
+            margin-left: 5px;
+            color: gray;
+            vertical-align: super;
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            top: 40px;
+            left: 0;
+            width: 200px;
+            font-size: 0.8em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: font-size 0.2s ease;
+        }
+
+        .tooltip-icon:hover+.tooltip {
+            display: block;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 p-6">
@@ -19,7 +49,9 @@
         <div class="grid grid-cols-2 gap-8">
             <!-- Cost Types -->
             <div>
-                <h3 class="text-lg font-semibold mb-4">Cost Types</h3>
+                <h3 class="text-lg font-semibold mb-4">Cost Types <span class="tooltip-icon">❓</span>
+                    <div class="tooltip">Enter the projected costs for each category.</div>
+                </h3>
                 <div class="mb-4">
                     <label>Secure Coding Standard</label>
                     <input type="number" id="cost-secure-coding" class="w-full p-2 border rounded"
@@ -55,15 +87,13 @@
                     <input type="number" id="cost-maintenance" class="w-full p-2 border rounded"
                         placeholder="Enter cost">
                 </div>
-                <div class="mb-4">
-                    <label class="font-bold">Total Cost</label>
-                    <input type="number" id="total-cost" class="w-full p-2 border rounded bg-gray-200" readonly>
-                </div>
             </div>
 
             <!-- Benefit Types -->
             <div>
-                <h3 class="text-lg font-semibold mb-4">Benefit Types</h3>
+                <h3 class="text-lg font-semibold mb-4">Benefit Types <span class="tooltip-icon">❓</span>
+                    <div class="tooltip">Enter the projected benefits for each category.</div>
+                </h3>
                 <div class="mb-4">
                     <label>Reduction in Rework</label>
                     <input type="number" id="benefit-rework" class="w-full p-2 border rounded"
@@ -104,10 +134,6 @@
                     <input type="number" id="benefit-quantifiable" class="w-full p-2 border rounded"
                         placeholder="Enter benefit">
                 </div>
-                <div class="mb-4">
-                    <label class="font-bold">Total Benefit</label>
-                    <input type="number" id="total-benefit" class="w-full p-2 border rounded bg-gray-200" readonly>
-                </div>
             </div>
         </div>
 
@@ -115,10 +141,17 @@
         <div class="mt-8">
             <label>Years</label>
             <input type="number" id="years" class="w-full p-2 border rounded mb-4"
-                placeholder="Enter number of years" value="0">
+                placeholder="Enter number of years" value="5">
             <label class="mt-4">Discount Rate (%)</label>
             <input type="number" id="discount-rate" class="w-full p-2 border rounded"
-                placeholder="Enter discount rate" value="0">
+                placeholder="Enter discount rate" value="5">
+        </div>
+
+        <!-- Required Return -->
+        <div class="mt-4">
+            <label>Required Return (%)</label>
+            <input type="number" id="required-return" class="w-full p-2 border rounded"
+                placeholder="Enter required return" value="5">
         </div>
 
         <!-- Buttons -->
