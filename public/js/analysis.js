@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const ctx = document.getElementById('costBenefitChart').getContext('2d');
     let chart;
 
+    // Automatically update total cost and total benefit as the user inputs values
+    const autoUpdateTotal = () => {
+        const totalCost = Object.values(getCostInputs()).reduce((acc, cost) => acc + cost, 0);
+        const totalBenefit = Object.values(getBenefitInputs()).reduce((acc, benefit) => acc + benefit, 0);
+
+        document.getElementById('total-cost').value = totalCost.toFixed(2);
+        document.getElementById('total-benefit').value = totalBenefit.toFixed(2);
+    };
+
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', autoUpdateTotal);
+    });
+
     // Get user inputs for costs and benefits
     const getCostInputs = () => ({
         secureCoding: parseFloat(document.getElementById('cost-secure-coding').value) || 0,
@@ -34,12 +47,27 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to compute Present Value (PV)
     const computePresentValue = (amount, rate, year) => amount / Math.pow(1 + rate, year);
 
+    // Automatically scale costs to decrease and benefits to increase over time
+    const scaleValues = (initialValue, rate, years, isCost = true) => {
+        const values = [];
+        for (let i = 0; i < years; i++) {
+            const value = isCost
+                ? initialValue * Math.pow(1 - rate, i)  // Decreasing cost
+                : initialValue * Math.pow(1 + rate, i); // Increasing benefit
+            values.push(value);
+        }
+        return values;
+    };
+
     // Function to compute NPV, BCR, and IRR
     const computeNPV = (costs, benefits, rate, years) => {
         let npv = 0, totalCost = 0, totalBenefit = 0;
+        const scaledCosts = scaleValues(Object.values(costs).reduce((a, b) => a + b), 0.1, years, true);
+        const scaledBenefits = scaleValues(Object.values(benefits).reduce((a, b) => a + b), 0.1, years, false);
+
         for (let i = 1; i <= years; i++) {
-            const yearlyCost = Object.values(costs).reduce((acc, cost) => acc + computePresentValue(cost, rate, i), 0);
-            const yearlyBenefit = Object.values(benefits).reduce((acc, benefit) => acc + computePresentValue(benefit, rate, i), 0);
+            const yearlyCost = computePresentValue(scaledCosts[i - 1], rate, i);
+            const yearlyBenefit = computePresentValue(scaledBenefits[i - 1], rate, i);
             totalCost += yearlyCost;
             totalBenefit += yearlyBenefit;
             npv += yearlyBenefit - yearlyCost;
@@ -61,13 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Generate the graph for cost and benefit progression
     const generateChart = (costs, benefits, years) => {
         const labels = Array.from({ length: years }, (_, i) => `Year ${i + 1}`);
-        const costData = Array.from({ length: years }, (_, i) => {
-            return Object.values(costs).reduce((acc, cost) => acc + computePresentValue(cost, getDiscountRate(), i + 1), 0);
-        });
-
-        const benefitData = Array.from({ length: years }, (_, i) => {
-            return Object.values(benefits).reduce((acc, benefit) => acc + computePresentValue(benefit, getDiscountRate(), i + 1), 0);
-        });
+        const costData = scaleValues(Object.values(costs).reduce((a, b) => a + b), 0.1, years, true);
+        const benefitData = scaleValues(Object.values(benefits).reduce((a, b) => a + b), 0.1, years, false);
 
         if (chart) {
             chart.destroy();
@@ -140,26 +163,9 @@ document.addEventListener('DOMContentLoaded', function () {
             message += "Bad Investment: IRR is lower than the required return. ";
         }
 
-        if (npv > 0 && bcr > 1 && irr > requiredReturn) {
-            message += "This is a Highly Profitable Investment!";
-        } else {
-            message += "This Investment May Not Be Profitable.";
-        }
-
         notification.textContent = message;
         notification.classList.remove('hidden');
     };
-
-    // Add question mark functionality for showing tooltips (like previous effect)
-    document.querySelectorAll('.tooltip-icon').forEach(icon => {
-        icon.addEventListener('click', function () {
-            const tooltip = this.nextElementSibling;
-            tooltip.style.display = 'block';
-            setTimeout(() => {
-                tooltip.style.display = 'none';
-            }, 5000); // Tooltip will hide after 5 seconds
-        });
-    });
 
     // Calculate button functionality
     calculateBtn.addEventListener('click', () => {
@@ -171,12 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Clear previous results from the table
         document.getElementById('results-table').innerHTML = '';
-
-        // Ensure years and discount rate are entered
-        if (years === 0 || rate === 0 || requiredReturn === 0) {
-            showHoverMessage(); // Display the hovering message under input fields
-            return;
-        }
 
         // Compute NPV, BCR, and IRR
         const { npv, totalCost, totalBenefit } = computeNPV(costs, benefits, rate, years);
@@ -192,10 +192,10 @@ document.addEventListener('DOMContentLoaded', function () {
         generateChart(costs, benefits, years);
 
         // Display a conclusion notification based on the results
-        displayNotification(npv, bcr,         irr, requiredReturn);
+        displayNotification(npv, bcr, irr, requiredReturn);
     });
 
-    // Reset button functionality
+    //
     resetBtn.addEventListener('click', () => {
         if (chart) {
             chart.destroy();
@@ -244,4 +244,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     }
 });
-
