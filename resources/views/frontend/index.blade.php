@@ -16,8 +16,8 @@
                                 <div class="list-card-image">
                                     <div class="star position-absolute"><span class="badge badge-success"><i
                                                 class="icofont-star"></i> 3.1 (300+)</span></div>
-                                    <div class="favourite-heart text-danger position-absolute"><a href="detail.html"><i
-                                                class="icofont-heart"></i></a></div>
+                                    <div class="favourite-heart text-danger position-absolute"><a
+                                            href="{{ route('app.details') }}"><i class="icofont-heart"></i></a></div>
                                     <div class="member-plan position-absolute"><span
                                             class="badge badge-dark">Promoted</span></div>
                                     <a href="detail.html">
