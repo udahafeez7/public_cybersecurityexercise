@@ -1,242 +1,212 @@
-// Select DOM elements
-const yearsInput = document.getElementById('years');
-const riskLevelSelect = document.getElementById('risk-level');
-const riskScaleSelect = document.getElementById('risk-scale');
-const generateButton = document.getElementById('generate-tables');
-const costSection = document.getElementById('cost-section');
-const benefitSection = document.getElementById('benefit-section');
-const actionButtons = document.getElementById('action-buttons');
-const resultSection = document.getElementById('result-section');
-const proceedButton = document.getElementById('proceed-benefits');
+document.addEventListener('DOMContentLoaded', () => {
+    const initialInvestmentInput = document.getElementById('initial-investment');
+    const discountRateInput = document.getElementById('discount-rate');
+    const expectedValueDisplay = document.getElementById('expected-value');
+    const yearsInput = document.getElementById('years');
 
-// Risk Scale Mapping
-const riskScaleMap = {
-    low: [0, 5],
-    medium: [6, 15],
-    high: [16, 30],
-    catastrophic: [31, 50]
-};
-
-// Update Risk Scale Based on Risk Level
-riskLevelSelect.addEventListener('change', function () {
-    let selectedLevel = riskLevelSelect.value;
-    let scaleOptions = riskScaleMap[selectedLevel];
-    riskScaleSelect.innerHTML = ''; // Clear previous options
-
-    for (let i = scaleOptions[0]; i <= scaleOptions[1]; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = `${i}%`;
-        riskScaleSelect.appendChild(option);
-    }
-});
-
-// Generate Cost and Benefit Tables
-generateButton.addEventListener('click', function () {
-    const years = parseInt(yearsInput.value);
-    if (isNaN(years) || years <= 0) {
-        alert("Please enter a valid number of years.");
-        return;
-    }
-
-    // Generate Cost Table Headers
-    const costHeaders = ['<th>Cost Types</th>'];
-    for (let i = 1; i <= years; i++) {
-        costHeaders.push(`<th>Year ${i}</th>`);
-    }
-
-    // Generate Benefit Table Headers
-    const benefitHeaders = ['<th>Benefit Types</th>'];
-    for (let i = 1; i <= years; i++) {
-        benefitHeaders.push(`<th>Year ${i}</th>`);
-    }
-
-    document.getElementById('dynamic-cost-headers').innerHTML = costHeaders.join('');
-    document.getElementById('dynamic-benefit-headers').innerHTML = benefitHeaders.join('');
-
-    // Show the cost section after generating headers
-    costSection.classList.remove('hidden');
-
-    // Populate the cost table body
     const costTableBody = document.getElementById('cost-table-body');
-    costTableBody.innerHTML = ''; // Clear previous rows
-
-    // Populate the cost types
-    const costTypes = [
-        "Secure Coding Standard",
-        "Secure Coding Training",
-        "Impact on DevOps",
-        "Effect on Review and Deployment Cycles",
-        "Cloud Operational Cost",
-        "Cloud Security Tools",
-        "Maintenance and Support",
-        "Incident Response, Disaster Recovery, and Business Continuity"
-    ];
-
-    costTypes.forEach(type => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${type}</td>`;
-        for (let i = 0; i < years; i++) {
-            row.innerHTML += `<td><input type="number" class="cost-input p-2 border" placeholder="0.00" /></td>`;
-        }
-        costTableBody.appendChild(row);
-    });
-
-    // Show benefit section only after clicking "Proceed to Benefits"
-    proceedButton.addEventListener('click', function () {
-        benefitSection.classList.remove('hidden');
-        actionButtons.classList.remove('hidden'); // Show action buttons
-    });
-
-    // Populate the benefit table body
     const benefitTableBody = document.getElementById('benefit-table-body');
-    benefitTableBody.innerHTML = ''; // Clear previous rows
 
-    const benefitTypes = [
-        "Reduction in Rework",
-        "Risk Reduction from CIA-AAN",
-        "Performance Improvement",
-        "Customer Trust, Retention, Reputation Management",
-        "Innovation and Market Competitiveness",
-        "Cost Avoidance and Risk Mitigation",
-        "Environmental, Social, and Governance Compliance",
-        "Quantifiable Aspects"
-    ];
+    const computeButton = document.getElementById('calculate');
+    const npvDisplay = document.getElementById('npv-result');
+    const bcrDisplay = document.getElementById('bcr-result');
+    const irrDisplay = document.getElementById('irr-result');
 
-    benefitTypes.forEach(type => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${type}</td>`;
-        for (let i = 0; i < years; i++) {
-            row.innerHTML += `<td><input type="number" class="benefit-input p-2 border" placeholder="0.00" /></td>`;
-        }
-        benefitTableBody.appendChild(row);
+    // Probabilities and impacts for risk levels
+    const probabilities = {
+        low: 0.40,
+        medium: 0.30,
+        high: 0.20,
+        catastrophic: 0.10
+    };
+
+    const impacts = {
+        low: 0.05,
+        medium: 0.15,
+        high: 0.25,
+        catastrophic: 0.45
+    };
+
+    // Function to calculate expected value of initial investment based on risk levels
+    function calculateExpectedValue(initialInvestment) {
+        const lowRiskValue = probabilities.low * impacts.low * initialInvestment;
+        const mediumRiskValue = probabilities.medium * impacts.medium * initialInvestment;
+        const highRiskValue = probabilities.high * impacts.high * initialInvestment;
+        const catastrophicRiskValue = probabilities.catastrophic * impacts.catastrophic * initialInvestment;
+
+        // Calculate the total expected value
+        return initialInvestment + lowRiskValue + mediumRiskValue + highRiskValue + catastrophicRiskValue;
+    }
+
+    // Function to generate discount factor
+    function calculateDiscountFactor(rate, year) {
+        return 1 / Math.pow((1 + rate), year);
+    }
+
+    // Event listener to generate tables when the user inputs values
+    [initialInvestmentInput, yearsInput, discountRateInput].forEach(input => {
+        input.addEventListener('input', generateTables);
     });
-});
 
-// Function to calculate costs
-function calculateCosts() {
-    const riskScalePercentage = parseInt(riskScaleSelect.value);
-    const costInputs = document.querySelectorAll('#cost-table-body .cost-input');
-    let totalCost = 0;
-    let costPerColumn = Array(parseInt(yearsInput.value)).fill(0); // Initialize array for each year
+    function generateTables() {
+        const years = parseInt(yearsInput.value);
+        const initialInvestment = parseFloat(initialInvestmentInput.value) || 0;
+        const discountRate = parseFloat(discountRateInput.value) / 100 || 0;
 
-    const years = parseInt(yearsInput.value);
+        // Calculate the expected value of the initial investment
+        const expectedValue = calculateExpectedValue(initialInvestment);
+        expectedValueDisplay.innerText = `$${expectedValue.toFixed(2)}`;
 
-    for (let i = 0; i < costInputs.length; i++) {
-        const value = parseFloat(costInputs[i].value) || 0;
-        const column = i % years;
+        // Generate cost and benefit tables dynamically
+        if (isNaN(years) || years <= 0) return;
 
-        if (column === 0) { // Apply risk scale to the first year only
-            costPerColumn[column] += value + (value * (riskScalePercentage / 100));
-        } else {
-            costPerColumn[column] += value;
+        // Clear previous table rows
+        costTableBody.innerHTML = '';
+        benefitTableBody.innerHTML = '';
+
+        // Full list of operational cost and benefit types
+        const costTypes = [
+            "Secure Coding Standard", "Secure Coding Training", "Impact on DevOps",
+            "Effect on Review and Deployment Cycles", "Cloud Operational Cost",
+            "Cloud Security Tools", "Maintenance and Support",
+            "Incident Response, Disaster Recovery, and Business Continuity"
+        ];
+        const benefitTypes = [
+            "Reduction in Rework", "Risk Reduction from CIA-AAN", "Performance Improvement",
+            "Customer Trust, Retention, Reputation Management",
+            "Innovation and Market Competitiveness", "Cost Avoidance and Risk Mitigation",
+            "Environmental, Social, and Governance Compliance", "Quantifiable Aspects"
+        ];
+
+        // Generate cost and benefit rows
+        generateRows(costTableBody, costTypes, years, 'cost');
+        generateRows(benefitTableBody, benefitTypes, years, 'benefit');
+    }
+
+    function generateRows(tableBody, types, years, typePrefix) {
+        types.forEach(type => {
+            let rowHTML = `<tr><td>${type}</td>`;
+            for (let i = 1; i <= years; i++) {
+                rowHTML += `<td><input type="number" class="${typePrefix}-input p-2 border rounded" placeholder="0.00" data-year="${i}" /></td>`;
+            }
+            rowHTML += '</tr>';
+            tableBody.innerHTML += rowHTML;
+        });
+
+        // Add rows for cumulative values and present values
+        let cumulativeRow = `<tr><td><strong>${typePrefix === 'cost' ? 'Cost Per Column' : 'Benefit Per Column'}</strong></td>`;
+        let presentValueRow = `<tr><td><strong>Present Value of ${typePrefix === 'cost' ? 'Cost' : 'Benefit'}</strong></td>`;
+        let totalRow = `<tr><td><strong>Total ${typePrefix === 'cost' ? 'Cost' : 'Benefit'}</strong></td>`;
+
+        for (let i = 1; i <= years; i++) {
+            cumulativeRow += `<td id="${typePrefix}-cumulative-${i}">0.00</td>`;
+            presentValueRow += `<td id="${typePrefix}-pv-${i}">0.00</td>`;
+            totalRow += `<td id="${typePrefix}-total-${i}">0.00</td>`;
         }
+        cumulativeRow += '</tr>';
+        presentValueRow += '</tr>';
+        totalRow += '</tr>';
+
+        tableBody.innerHTML += cumulativeRow + presentValueRow + totalRow;
     }
 
-    // Update cost per column and total cost
-    document.getElementById('cost-per-column').innerHTML = `<td>Cost Per Column</td>${costPerColumn.map(c => `<td>${c.toFixed(2)}</td>`).join('')}`;
-    totalCost = costPerColumn.reduce((a, b) => a + b, 0);
-    document.getElementById('total-cost').innerText = totalCost.toFixed(2);
-}
+    // Event listener for calculating results
+    computeButton.addEventListener('click', calculateResults);
 
-// Function to calculate benefits
-function calculateBenefits() {
-    const benefitInputs = document.querySelectorAll('#benefit-table-body .benefit-input');
-    let totalBenefit = 0;
-    let benefitPerColumn = Array(parseInt(yearsInput.value)).fill(0);
+    function calculateResults() {
+        const years = parseInt(yearsInput.value);
+        const discountRate = parseFloat(discountRateInput.value) / 100 || 0;
+        const initialInvestment = parseFloat(expectedValueDisplay.innerText.replace('$', '')) || 0;
 
-    const years = parseInt(yearsInput.value);
+        // Total cost and benefit accumulations
+        let totalCost = 0;
+        let totalBenefit = 0;
 
-    for (let i = 0; i < benefitInputs.length; i++) {
-        const value = parseFloat(benefitInputs[i].value) || 0;
-        const column = i % years;
+        // Calculating cost and benefit columns dynamically
+        for (let i = 1; i <= years; i++) {
+            // Cost calculation
+            const costPerColumn = calculatePerColumn('cost', i);
+            const costPresentValue = calculatePresentValue(costPerColumn, discountRate, i);
+            document.getElementById(`cost-cumulative-${i}`).innerText = costPerColumn.toFixed(2);
+            document.getElementById(`cost-pv-${i}`).innerText = costPresentValue.toFixed(2);
 
-        benefitPerColumn[column] += value;
+            // Benefit calculation
+            const benefitPerColumn = calculatePerColumn('benefit', i);
+            const benefitPresentValue = calculatePresentValue(benefitPerColumn, discountRate, i);
+            document.getElementById(`benefit-cumulative-${i}`).innerText = benefitPerColumn.toFixed(2);
+            document.getElementById(`benefit-pv-${i}`).innerText = benefitPresentValue.toFixed(2);
+
+            // Sum for total cost and benefit
+            totalCost += costPresentValue;
+            totalBenefit += benefitPresentValue;
+        }
+
+        // Adding expected value to total cost
+        totalCost += initialInvestment;
+
+        // Update the total rows
+        document.getElementById('cost-total-1').innerText = totalCost.toFixed(2);
+        document.getElementById('benefit-total-1').innerText = totalBenefit.toFixed(2);
+
+        // Calculate NPV, BCR, and IRR
+        const npv = totalBenefit - totalCost;
+        const bcr = totalBenefit / totalCost;
+        const irr = "Calculated via financial tools"; // Placeholder for IRR
+
+        // Display results
+        npvDisplay.innerText = `$${npv.toFixed(2)}`;
+        bcrDisplay.innerText = bcr.toFixed(2);
+        irrDisplay.innerText = irr;
+
+        // Generate the graph (convex/concave)
+        generateNetBenefitChart(totalCost, totalBenefit);
     }
 
-    // Update benefit per column and total benefit
-    document.getElementById('benefit-per-column').innerHTML = `<td>Benefit Per Column</td>${benefitPerColumn.map(b => `<td>${b.toFixed(2)}</td>`).join('')}`;
-    totalBenefit = benefitPerColumn.reduce((a, b) => a + b, 0);
-    document.getElementById('total-benefit').innerText = totalBenefit.toFixed(2);
+    // Helper functions to calculate per column and present value
+    function calculatePerColumn(typePrefix, year) {
+        let sum = 0;
+        document.querySelectorAll(`.${typePrefix}-input[data-year="${year}"]`).forEach(input => {
+            sum += parseFloat(input.value) || 0;
+        });
+        return sum;
+    }
 
-    // Calculate net benefit
-    const totalCost = parseFloat(document.getElementById('total-cost').innerText) || 0;
-    const netBenefit = totalBenefit - totalCost;
-    document.getElementById('net-benefit').innerText = netBenefit.toFixed(2);
-}
+    function calculatePresentValue(value, discountRate, year) {
+        const discountFactor = calculateDiscountFactor(discountRate, year);
+        return value * discountFactor;
+    }
 
-// Action buttons for calculating and resetting
-document.getElementById('calculate').addEventListener('click', function () {
-    calculateCosts();
-    calculateBenefits();
-    generateChart();
-});
-
-// Reset button functionality
-document.getElementById('reset').addEventListener('click', function () {
-    document.querySelectorAll('.cost-input').forEach(input => input.value = '');
-    document.querySelectorAll('.benefit-input').forEach(input => input.value = '');
-    document.getElementById('cost-per-column').innerHTML = '<td>Cost Per Column</td>';
-    document.getElementById('total-cost').innerText = '0.00';
-    document.getElementById('benefit-per-column').innerHTML = '<td>Benefit Per Column</td>';
-    document.getElementById('total-benefit').innerText = '0.00';
-    document.getElementById('net-benefit').innerText = '0.00';
-    resultSection.classList.add('hidden');
-});
-
-// Function to generate the chart
-function generateChart() {
-    const ctx = document.getElementById('costBenefitChart').getContext('2d');
-    const totalCost = parseFloat(document.getElementById('total-cost').innerText) || 0;
-    const totalBenefit = parseFloat(document.getElementById('total-benefit').innerText) || 0;
-
-    new Chart(ctx, {
-        type: 'line', // Changed to line chart for curves
-        data: {
-            labels: Array.from({length: parseInt(yearsInput.value)}, (_, i) => `Year ${i + 1}`),
-            datasets: [{
-                label: 'Cost',
-                data: Array(parseInt(yearsInput.value)).fill(totalCost),
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                fill: false
+    // Graph generation
+    function generateNetBenefitChart(totalCost, totalBenefit) {
+        const ctx = document.getElementById('netBenefitChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: yearsInput.value }, (_, i) => `Year ${i + 1}`),
+                datasets: [
+                    {
+                        label: 'Cumulative Cost',
+                        data: Array.from({ length: yearsInput.value }, (_, i) => parseFloat(document.getElementById(`cost-cumulative-${i + 1}`).innerText) || 0),
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: false
+                    },
+                    {
+                        label: 'Cumulative Benefit',
+                        data: Array.from({ length: yearsInput.value }, (_, i) => parseFloat(document.getElementById(`benefit-cumulative-${i + 1}`).innerText) || 0),
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        fill: false
+                    }
+                ]
             },
-            {
-                label: 'Benefit',
-                data: Array(parseInt(yearsInput.value)).fill(totalBenefit),
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                fill: false
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-
-    displayConclusion(totalCost, totalBenefit);
-}
-
-// Function to display conclusion based on NPV, BCR, and IRR
-function displayConclusion(totalCost, totalBenefit) {
-    const notification = document.getElementById('notification');
-    const npv = totalBenefit - totalCost; // Simplified for demonstration
-    const bcr = totalBenefit / totalCost;
-    const irr = ((bcr - 1) * 100).toFixed(2); // Simplified IRR calculation
-
-    document.getElementById('npv-result').innerText = `$${npv.toFixed(2)}`;
-    document.getElementById('bcr-result').innerText = bcr.toFixed(2);
-    document.getElementById('irr-result').innerText = `${irr}%`;
-
-    if (npv > 0 && bcr > 1) {
-        notification.textContent = "Good Investment: Positive NPV and BCR greater than 1 indicate a profit.";
-    } else {
-        notification.textContent = "Bad Investment: Negative NPV or BCR less than 1 indicates a loss.";
+        });
     }
-
-    resultSection.classList.remove('hidden'); // Show the results section
-}
+});
