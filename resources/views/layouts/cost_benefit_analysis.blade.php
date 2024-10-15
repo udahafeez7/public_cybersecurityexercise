@@ -51,11 +51,11 @@
             <!-- Operational Cost Types Table -->
             <div id="cost-section">
                 <h3 class="text-xl font-semibold mb-4 text-center">Operational Cost Types</h3>
-                <table class="w-full mb-4 text-center">
-                    <thead id="cost-table-headers">
+                <table class="w-full mb-4 text-center border-collapse border border-gray-400">
+                    <thead id="cost-table-headers" class="bg-gray-200">
                         <!-- Dynamically Generated -->
                     </thead>
-                    <tbody id="cost-table-body">
+                    <tbody id="cost-table-body" class="border-t">
                         <!-- Dynamically Generated -->
                     </tbody>
                 </table>
@@ -64,11 +64,11 @@
             <!-- Operational Benefit Types Table -->
             <div id="benefit-section">
                 <h3 class="text-xl font-semibold mb-4 text-center">Operational Benefit Types</h3>
-                <table class="w-full mb-4 text-center">
-                    <thead id="benefit-table-headers">
+                <table class="w-full mb-4 text-center border-collapse border border-gray-400">
+                    <thead id="benefit-table-headers" class="bg-gray-200">
                         <!-- Dynamically Generated -->
                     </thead>
-                    <tbody id="benefit-table-body">
+                    <tbody id="benefit-table-body" class="border-t">
                         <!-- Dynamically Generated -->
                     </tbody>
                 </table>
@@ -91,11 +91,11 @@
 
         <!-- Chart Section -->
         <div class="chart-container mt-8">
-            <canvas id="costBenefitChart"></canvas>
+            <canvas id="costBenefitChart" width="400" height="200"></canvas>
         </div>
 
         <div class="chart-container mt-8">
-            <canvas id="netBenefitChart"></canvas>
+            <canvas id="netBenefitChart" width="400" height="200"></canvas>
         </div>
     </div>
 
