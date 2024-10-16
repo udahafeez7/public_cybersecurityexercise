@@ -91,7 +91,8 @@
                                                 alt="Pre Training Exercise">
                                             <div class="media-body">
                                                 <h6 class="mb-2">
-                                                    <a href="{{ route('user.materials') }}" class="text-black"
+                                                    <a href="https://forms.gle/6ph8XYdKFchDLgqr9" target="_blank"
+                                                        class="text-black"
                                                         style="font-size: 1.5rem; font-weight: bold; color: #db1111; text-decoration: none; padding: 8px 12px; display: inline-block; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease;">
                                                         Pre Training Exercise Questionnaire
                                                     </a>
@@ -144,7 +145,7 @@
                                         <div class="card-body">
                                             <img src="{{ asset('frontend/img/list/2.png') }}" class="img-fluid w-100"
                                                 alt="MCDM">
-                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Preloaded Learning Matrial
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Preloaded Learning Material
                                             </h6>
                                             <a href="{{ route('user.materials') }}" class="card-link">FIND OUT
                                                 MORE</a>
@@ -153,6 +154,93 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Multimedia Repository Section -->
+                        <div class="tab-pane fade" id="multimedia" role="tabpanel" aria-labelledby="multimedia-tab">
+                            <h4 class="font-weight-bold mt-0 mb-4">Multimedia Repositories</h4>
+
+                            <!-- Multimedia Repository Cards - Row 1 -->
+                            <div class="row mb-4 pb-2">
+                                <!-- First YouTube Video -->
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- YouTube Video Thumbnail and Link -->
+                                            <iframe width="100%" height="250"
+                                                src="https://www.youtube.com/embed/MRckVd2JlqE"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Multi Criteria Decision
+                                                Making</h6>
+                                            <a href="https://youtu.be/MRckVd2JlqE" class="card-link"
+                                                target="_blank">Watch on YouTube</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Second YouTube Video -->
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- YouTube Video Thumbnail and Link for Second Video -->
+                                            <iframe width="100%" height="250"
+                                                src="https://www.youtube.com/embed/-MpFHElskyU"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Reduced Complexity</h6>
+                                            <a href="https://youtu.be/-MpFHElskyU" class="card-link"
+                                                target="_blank">Watch on YouTube</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Multimedia Repository Cards - Row 2 -->
+                            <div class="row mb-4 pb-2">
+                                <!-- Third YouTube Video -->
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- YouTube Video Thumbnail and Link for Third Video -->
+                                            <iframe width="100%" height="250"
+                                                src="https://www.youtube.com/embed/L36J6vbqsPE"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Risk Level Determination
+                                            </h6>
+                                            <a href="https://youtu.be/L36J6vbqsPE" class="card-link"
+                                                target="_blank">Watch on YouTube</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Fourth YouTube Video -->
+                                <div class="col-md-6">
+                                    <div class="card offer-card shadow-sm">
+                                        <div class="card-body">
+                                            <!-- YouTube Video Thumbnail and Link for Fourth Video -->
+                                            <iframe width="100%" height="250"
+                                                src="https://www.youtube.com/embed/WGg-91GuJgA"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                            <h6 class="card-subtitle mt-3 mb-2 text-block">Cost Benefit Analysis</h6>
+                                            <a href="https://youtu.be/WGg-91GuJgA" class="card-link"
+                                                target="_blank">Watch on YouTube</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
 
                         <!-- Technical Software Intermediaries Section -->
                         <div class="tab-pane fade" id="favourites" role="tabpanel" aria-labelledby="favourites-tab">
@@ -211,7 +299,8 @@
                                             <div class="list-card-body">
                                                 <h6 class="mb-1">
                                                     <a href="{{ route('tasks.fuzzy-logic') }}"
-                                                        class="text-black">Risk Level Determination</a>
+                                                        class="text-black">Risk
+                                                        Level Determination</a>
                                                 </h6>
                                                 <p class="text-gray mb-3">System Complexity • Impact • Exploitability
                                                 </p>

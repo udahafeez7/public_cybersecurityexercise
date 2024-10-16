@@ -65,6 +65,14 @@
                 </a>
             </li>
 
+            <!-- Learning Materials Link -->
+            <li class="nav-item">
+                <a class="nav-link text-left menu-item" id="multimedia-tab" data-toggle="tab" href="#multimedia"
+                    role="tab" aria-controls="learning" aria-selected="false">
+                    <i class="icofont-sale-discount mr-2"></i> Video Repositories
+                </a>
+            </li>
+
             <!-- Technical Software Link -->
             <li class="nav-item">
                 <a class="nav-link text-left menu-item" id="favourites-tab" data-toggle="tab" href="#favourites"

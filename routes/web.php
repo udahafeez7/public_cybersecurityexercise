@@ -149,4 +149,7 @@ Route::prefix('tasks')->group(function () {
     Route::get('/domain-mapping', [UserLearningController::class, 'DomainMapping'])->name('tasks.domain-mapping');
     Route::get('/fuzzy-logic', [UserLearningController::class, 'FuzzyLogic'])->name('tasks.fuzzy-logic');
     Route::get('/cost_benefit_analysis', [UserLearningController::class, 'CostBenefitAnalysis'])->name('tasks.cost_benefit_analysis');
+
+    // New Multimedia Repository Route
+    Route::get('/multimedia-repository', [UserLearningController::class, 'Multimedia1'])->name('tasks.multimedia-repository');
 });

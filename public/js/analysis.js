@@ -59,7 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialInvestment = parseFloat(initialInvestmentInput.value) || 0;
         const discountRate = parseFloat(discountRateInput.value) / 100 || 0;
 
-        const expectedValue = calculateExpectedValue(initialInvestment); // Calculate expected value
+        if (!initialInvestment) {
+            expectedValueDisplay.innerText = "$0.00"; // Show zero if there's no initial investment yet
+        } else {
+            const expectedValue = calculateExpectedValue(initialInvestment); // Calculate expected value
+        }
 
         if (isNaN(years) || years <= 0) return;
 
@@ -121,12 +125,15 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML += cumulativeRow + presentValueRow + totalRow;
     }
 
-    computeButton.addEventListener('click', calculateResults);
+    computeButton.addEventListener('click', () => {
+        console.log("Compute button clicked"); // Debugging log
+        calculateResults();
+    });
 
     function calculateResults() {
         const years = parseInt(yearsInput.value);
         const discountRate = parseFloat(discountRateInput.value) / 100 || 0;
-        const initialInvestment = parseFloat(expectedValueDisplay.innerText.replace('$', '')) || 0;
+        const initialInvestment = parseFloat(initialInvestmentInput.value) || 0;
         const expectedValue = calculateExpectedValue(initialInvestment); // Use expected value
 
         let cumulativeCost = expectedValue; // Start cumulative cost with expected value
@@ -159,25 +166,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const npv = cumulativeBenefit - cumulativeCost;
         const bcr = cumulativeBenefit / cumulativeCost;
-        const irr = "Calculated via financial tools"; // Placeholder for IRR
+        const irr = calculateIRR([expectedValue].concat(totalBenefitPerYear.map((benefit, i) => benefit - totalCostPerYear[i])));
 
+        // Update the displayed values
         npvDisplay.innerText = `$${npv.toFixed(2)}`;
         bcrDisplay.innerText = bcr.toFixed(2);
-        irrDisplay.innerText = irr;
+        irrDisplay.innerText = `${irr.toFixed(2)}%`;
 
-        // Display BCR, NPV, IRR, and Benefit-Cost Ratio summary
-        bcrSummaryDisplay.innerText = bcr.toFixed(2);
-
-        // Display Overall Summary based on NPV and BCR
+        // Display actual values in overall summary section
         if (npv > 0 && bcr > 1) {
-            overallSummaryText.innerText = "The project is profitable with a positive NPV and a BCR greater than 1.";
+            overallSummaryText.innerHTML = `
+                <strong>Profitable:</strong> The project has a positive NPV of $${npv.toFixed(2)},
+                a BCR of ${bcr.toFixed(2)};
             overallSummaryText.style.color = "green";
         } else {
-            overallSummaryText.innerText = "The project is not profitable with a negative NPV or a BCR less than 1.";
+            overallSummaryText.innerHTML = `
+                <strong>Not Profitable:</strong> The project has a negative NPV of $${npv.toFixed(2)},
+                                               a BCR of ${bcr.toFixed(2)};
             overallSummaryText.style.color = "red";
         }
 
-        // Show the overall summary section
+        // Show the overall summary section with the updated BCR, NPV, and IRR
         document.getElementById('overall-summary').classList.remove('hidden');
 
         // Generate the updated graph with Total Cost and Total Benefit
@@ -197,6 +206,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return value * discountFactor;
     }
 
+    // IRR calculation function
+    function calculateIRR(cashFlows) {
+        let irr = 0.1; // Initial guess
+        const precision = 0.00001; // Desired precision
+        const maxIterations = 100;
+        let iteration = 0;
+
+        while (iteration < maxIterations) {
+            let npv = 0;
+            for (let t = 0; t < cashFlows.length; t++) {
+                npv += cashFlows[t] / Math.pow(1 + irr, t);
+            }
+
+            if (Math.abs(npv) < precision) {
+                return irr * 100; // Return IRR as a percentage
+            }
+
+            let derivative = 0;
+            for (let t = 1; t < cashFlows.length; t++) {
+                derivative -= t * cashFlows[t] / Math.pow(1 + irr, t + 1);
+            }
+
+            irr -= npv / derivative;
+            iteration++;
+        }
+
+        return irr * 100; // Return IRR as a percentage
+    }
+
     // Graph generation for total cost vs total benefit
     function generateNetBenefitChart(totalCostPerYear, totalBenefitPerYear) {
         const ctx = document.getElementById('netBenefitChart').getContext('2d');
@@ -210,32 +248,32 @@ document.addEventListener('DOMContentLoaded', () => {
                         data: totalCostPerYear,
                         borderColor: 'rgba(255, 99, 132, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: false, // Don't fill under the line
-                        pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Red points
-                        pointRadius: 5 // Bigger point size
+                        fill: false,
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                        pointRadius: 5
                     },
                     {
                         label: 'Total Benefit',
                         data: totalBenefitPerYear,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        fill: false, // Don't fill under the line
-                        pointBackgroundColor: 'rgba(54, 162, 235, 1)', // Blue points
-                        pointRadius: 5 // Bigger point size
+                        fill: false,
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                        pointRadius: 5
                     }
                 ]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true // Ensure the Y-axis starts at zero
+                        beginAtZero: true
                     }
                 },
                 tooltips: {
                     callbacks: {
-                        label: function(tooltipItem, data) {
+                        label: function (tooltipItem, data) {
                             const label = data.datasets[tooltipItem.datasetIndex].label || '';
-                            return `${label}: $${tooltipItem.yLabel.toFixed(2)}`; // Display tooltip with formatted value
+                            return `${label}: $${tooltipItem.yLabel.toFixed(2)}`;
                         }
                     }
                 }
