@@ -86,6 +86,7 @@
             <p class="text-lg"><strong>NPV:</strong> <span id="npv-result">$0.00</span></p>
             <p class="text-lg"><strong>BCR:</strong> <span id="bcr-result">0.00</span></p>
             <p class="text-lg"><strong>IRR:</strong> <span id="irr-result">0.00%</span></p>
+            <p class="text-lg"><strong>Benefit-Cost Ratio:</strong> <span id="bcr-summary-result">0.00</span></p>
             <p id="notification" class="text-gray-600"></p>
         </div>
 
@@ -96,6 +97,12 @@
 
         <div class="chart-container mt-8">
             <canvas id="netBenefitChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Overall Summary Section -->
+        <div id="overall-summary" class="hidden mt-10 bg-white p-6 shadow-lg rounded-lg">
+            <h4 class="text-2xl font-semibold mb-4">Project Summary</h4>
+            <p class="text-lg" id="overall-summary-text"></p>
         </div>
     </div>
 

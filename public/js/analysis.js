@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const npvDisplay = document.getElementById('npv-result');
     const bcrDisplay = document.getElementById('bcr-result');
     const irrDisplay = document.getElementById('irr-result');
-    const decisionDisplay = document.getElementById('decision-result');
+    const bcrSummaryDisplay = document.getElementById('bcr-summary-result');
+    const decisionDisplay = document.getElementById('notification');
+    const overallSummaryText = document.getElementById('overall-summary-text');
 
     const ctx = document.getElementById('netBenefitChart').getContext('2d');
 
@@ -37,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const highRiskValue = probabilities.high * impacts.high * initialInvestment;
         const catastrophicRiskValue = probabilities.catastrophic * impacts.catastrophic * initialInvestment;
 
-        return initialInvestment + lowRiskValue + mediumRiskValue + highRiskValue + catastrophicRiskValue;
+        const expectedValue = initialInvestment + lowRiskValue + mediumRiskValue + highRiskValue + catastrophicRiskValue;
+        expectedValueDisplay.innerText = `$${expectedValue.toFixed(2)}`; // Display the expected value
+        return expectedValue; // Return the calculated expected value
     }
 
     // Function to generate discount factor
@@ -55,8 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const initialInvestment = parseFloat(initialInvestmentInput.value) || 0;
         const discountRate = parseFloat(discountRateInput.value) / 100 || 0;
 
-        const expectedValue = calculateExpectedValue(initialInvestment);
-        expectedValueDisplay.innerText = `$${expectedValue.toFixed(2)}`;
+        const expectedValue = calculateExpectedValue(initialInvestment); // Calculate expected value
 
         if (isNaN(years) || years <= 0) return;
 
@@ -124,12 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const years = parseInt(yearsInput.value);
         const discountRate = parseFloat(discountRateInput.value) / 100 || 0;
         const initialInvestment = parseFloat(expectedValueDisplay.innerText.replace('$', '')) || 0;
+        const expectedValue = calculateExpectedValue(initialInvestment); // Use expected value
 
-        let cumulativeCost = 0;
+        let cumulativeCost = expectedValue; // Start cumulative cost with expected value
         let cumulativeBenefit = 0;
 
-        let totalCostPerYear = [];
-        let totalBenefitPerYear = [];
+        let totalCostPerYear = [expectedValue]; // Initialize with expected value for Year 0
+        let totalBenefitPerYear = [0]; // Initialize benefit for Year 0 as 0
 
         for (let i = 1; i <= years; i++) {
             const costPerColumn = calculatePerColumn('cost', i);
@@ -138,11 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(`cost-pv-${i}`).innerText = costPresentValue.toFixed(2);
 
             cumulativeCost += costPresentValue;
-            totalCostPerYear[i - 1] = cumulativeCost; // Corrected index
-
-            if (i === years) {
-                cumulativeCost += initialInvestment;
-            }
+            totalCostPerYear[i] = cumulativeCost;
 
             document.getElementById(`cost-total-${i}`).innerText = cumulativeCost.toFixed(2);
 
@@ -152,28 +152,35 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(`benefit-pv-${i}`).innerText = benefitPresentValue.toFixed(2);
 
             cumulativeBenefit += benefitPresentValue;
-            totalBenefitPerYear[i - 1] = cumulativeBenefit; // Corrected index
+            totalBenefitPerYear[i] = cumulativeBenefit;
 
             document.getElementById(`benefit-total-${i}`).innerText = cumulativeBenefit.toFixed(2);
         }
 
         const npv = cumulativeBenefit - cumulativeCost;
         const bcr = cumulativeBenefit / cumulativeCost;
-        const irr = "Calculated via financial tools";
+        const irr = "Calculated via financial tools"; // Placeholder for IRR
 
         npvDisplay.innerText = `$${npv.toFixed(2)}`;
         bcrDisplay.innerText = bcr.toFixed(2);
         irrDisplay.innerText = irr;
 
-        // // Uncomment decision block
-        // if (npv > 0 && bcr > 1) {
-        //     decisionDisplay.innerText = "Profitable: The project has a positive NPV and a BCR greater than 1.";
-        //     decisionDisplay.style.color = "green";
-        // } else {
-        //     decisionDisplay.innerText = "Not Profitable: The project has a negative NPV or a BCR less than 1.";
-        //     decisionDisplay.style.color = "red";
-        // }
+        // Display BCR, NPV, IRR, and Benefit-Cost Ratio summary
+        bcrSummaryDisplay.innerText = bcr.toFixed(2);
 
+        // Display Overall Summary based on NPV and BCR
+        if (npv > 0 && bcr > 1) {
+            overallSummaryText.innerText = "The project is profitable with a positive NPV and a BCR greater than 1.";
+            overallSummaryText.style.color = "green";
+        } else {
+            overallSummaryText.innerText = "The project is not profitable with a negative NPV or a BCR less than 1.";
+            overallSummaryText.style.color = "red";
+        }
+
+        // Show the overall summary section
+        document.getElementById('overall-summary').classList.remove('hidden');
+
+        // Generate the updated graph with Total Cost and Total Benefit
         generateNetBenefitChart(totalCostPerYear, totalBenefitPerYear);
     }
 
@@ -203,21 +210,33 @@ document.addEventListener('DOMContentLoaded', () => {
                         data: totalCostPerYear,
                         borderColor: 'rgba(255, 99, 132, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: false
+                        fill: false, // Don't fill under the line
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Red points
+                        pointRadius: 5 // Bigger point size
                     },
                     {
                         label: 'Total Benefit',
                         data: totalBenefitPerYear,
                         borderColor: 'rgba(54, 162, 235, 1)',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        fill: false
+                        fill: false, // Don't fill under the line
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)', // Blue points
+                        pointRadius: 5 // Bigger point size
                     }
                 ]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true // Ensure the Y-axis starts at zero
+                    }
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            const label = data.datasets[tooltipItem.datasetIndex].label || '';
+                            return `${label}: $${tooltipItem.yLabel.toFixed(2)}`; // Display tooltip with formatted value
+                        }
                     }
                 }
             }
