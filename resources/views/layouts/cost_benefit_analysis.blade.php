@@ -21,8 +21,8 @@
             <div class="text-center mr-6">
                 <label for="initial-investment" class="block mb-1 font-semibold text-lg">Insert Initial
                     Investment:</label>
-                <input type="number" id="initial-investment" placeholder="Enter initial investment"
-                    class="w-80 p-2 border rounded text-right" />
+                <input type="number" id="initial-investment" placeholder="Enter initial money value of investment"
+                    class="w-80 p-2 border rounded text-center" />
             </div>
             <div class="text-center">
                 <label for="discount-rate" class="block mb-1 font-semibold text-lg">Insert Discount Rate (%):</label>

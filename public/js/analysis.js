@@ -177,12 +177,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (npv > 0 && bcr > 1) {
             overallSummaryText.innerHTML = `
                 <strong>Profitable:</strong> The project has a positive NPV of $${npv.toFixed(2)},
-                a BCR of ${bcr.toFixed(2)};
+                a BCR of ${bcr.toFixed(2)}, and an IRR of ${irr.toFixed(2)}%.`;
             overallSummaryText.style.color = "green";
         } else {
             overallSummaryText.innerHTML = `
                 <strong>Not Profitable:</strong> The project has a negative NPV of $${npv.toFixed(2)},
-                                               a BCR of ${bcr.toFixed(2)};
+                                               a BCR of ${bcr.toFixed(2)}, and an IRR of ${irr.toFixed(2)}%.`;
             overallSummaryText.style.color = "red";
         }
 
@@ -281,4 +281,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
