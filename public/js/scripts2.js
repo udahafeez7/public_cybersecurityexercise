@@ -56,6 +56,7 @@ function hideTooltip(id) {
     }
 }
 
+// Trapezoidal membership function for fuzzy logic
 function trapezoidalMembership(x, a, b, c, d) {
     if (x <= a || x >= d) return 0;
     else if (x >= b && x <= c) return 1;
@@ -139,55 +140,119 @@ function computeRisk() {
     document.getElementById("risk_level").textContent = isNaN(riskValue) ? '-' : riskLevel;
 
     // Update chart
-    updateChart(riskValue);
+    updateRiskChart(riskValue);
 }
 
 // Chart.js configuration
 const ctx = document.getElementById('riskChart').getContext('2d');
+
+// Data for trapezoidal membership functions
+const riskLabels = [0, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+// Membership data for each risk level (trapezoidal shape)
+const lowRiskData = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0];         // Low risk (1 at 0, 0 at 40)
+const mediumRiskData = [0, 0, 0, 1, 1, 1, 0, 0, 0, 0];      // Medium risk (1 peak at 40, descent starts at 60)
+const highRiskData = [0, 0, 0, 0, 0, 0, 1, 1, 0, 0];        // High risk (1 peak at 70, decline starts at 80)
+const catastrophicRiskData = [0, 0, 0,, 0, 0, 0, 0, 1, 1, 1]; // Catastrophic risk (1 peak at 90, no descent)
+
 const riskChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
-        labels: ['Low', 'Medium', 'High', 'Catastrophic'],
+        labels: riskLabels,
         datasets: [{
-            label: 'Risk Level',
-            data: [0, 0, 0, 0],
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(255, 99, 132, 0.2)'
-            ],
-            borderColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
+            label: 'Low Risk',
+            data: lowRiskData,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderWidth: 2,
+            fill: true, // Fill the area under the line
+        },
+        {
+            label: 'Medium Risk',
+            data: mediumRiskData,
+            borderColor: 'rgba(255, 206, 86, 1)',
+            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderWidth: 2,
+            fill: true, // Fill the area under the line
+        },
+        {
+            label: 'High Risk',
+            data: highRiskData,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderWidth: 2,
+            fill: true, // Fill the area under the line
+        },
+        {
+            label: 'Catastrophic Risk',
+            data: catastrophicRiskData,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderWidth: 2,
+            fill: true, // Fill the area under the line
         }]
     },
     options: {
-        indexAxis: 'y',
         scales: {
-            x: {
+            y: {
                 beginAtZero: true,
-                max: 100
+                max: 1,
+                title: {
+                    display: true,
+                    text: 'Membership',
+                    font: {
+                        size: 16
+                    }
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Risk',
+                    font: {
+                        size: 16
+                    }
+                },
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    stepSize: 10
+                }
             }
         }
     }
 });
 
-function updateChart(riskValue) {
+function updateRiskChart(riskValue) {
     if (riskValue !== null) {
-        const data = [0, 0, 0, 0];
-        if (riskValue <= 39) data[0] = riskValue;
-        else if (riskValue <= 69) data[1] = riskValue;
-        else if (riskValue <= 89) data[2] = riskValue;
-        else data[3] = riskValue;
-        riskChart.data.datasets[0].data = data;
-    } else {
-        riskChart.data.datasets[0].data = [0, 0, 0, 0];
+        const data = [0, 0, 0, 0]; // Reset the highlight on all risk levels
+
+        if (riskValue <= 39) data[0] = riskValue; // Low risk
+        else if (riskValue <= 69) data[1] = riskValue; // Medium risk
+        else if (riskValue <= 89) data[2] = riskValue; // High risk
+        else data[3] = riskValue; // Catastrophic risk
+
+        // Adjust opacity for the active risk level
+        riskChart.data.datasets[0].backgroundColor = riskValue <= 39 ? 'rgba(54, 162, 235, 0.6)' : 'rgba(54, 162, 235, 0.2)';
+        riskChart.data.datasets[1].backgroundColor = riskValue > 39 && riskValue <= 69 ? 'rgba(255, 206, 86, 0.6)' : 'rgba(255, 206, 86, 0.2)';
+        riskChart.data.datasets[2].backgroundColor = riskValue > 69 && riskValue <= 89 ? 'rgba(75, 192, 192, 0.6)' : 'rgba(75, 192, 192, 0.2)';
+        riskChart.data.datasets[3].backgroundColor = riskValue > 89 ? 'rgba(255, 99, 132, 0.6)' : 'rgba(255, 99, 132, 0.2)';
+
+        riskChart.update(); // Refresh the chart
     }
-    riskChart.update();
 }
 
+// Reset button logic to reset the sliders and inputs to default
+document.getElementById('resetButton').addEventListener('click', function () {
+    document.getElementById('system_complexity').value = 0;
+    document.getElementById('impact').value = 0;
+    document.getElementById('base_score').value = 0;
+    document.getElementById('exploitability').value = 0;
+    syncInput('system_complexity');
+    syncInput('impact');
+    syncInput('base_score');
+    syncInput('exploitability');
+    updateRiskChart(0); // Reset the chart
+    document.getElementById("risk_value").textContent = '-';
+    document.getElementById("risk_level").textContent = '-';
+});

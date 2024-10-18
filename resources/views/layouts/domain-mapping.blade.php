@@ -7,6 +7,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singular Value Decomposition & System Complexity</title>
     <style>
+        /* Ensure the title container is centered */
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Title styles - Change color to gold */
+        h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: gold;
+            /* Change title color to gold */
+            position: relative;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        h2:hover {
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Superscript question mark */
+        .question-mark {
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #ff9900;
+            padding: 3px 6px;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+            position: relative;
+            top: -10px;
+            transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .question-mark:hover {
+            background-color: #fff;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 16px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Description box styling */
+        #hover-box,
+        #hover-box-complexity {
+            display: none;
+            font-size: 1.4rem;
+            /* Slightly larger font */
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            /* Increase padding for larger box */
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+            width: 90%;
+            /* Make the hover box larger */
+            max-width: 900px;
+            /* Increase the max width */
+            position: absolute;
+            top: calc(100% + 15px);
+            /* More space between title and hover box */
+            left: 50%;
+            /* Center it horizontally */
+            transform: translateX(-50%);
+            /* Ensure the box is centered */
+        }
+
+        /* Hover Box active state */
+        #hover-box.active,
+        #hover-box-complexity.active {
+            opacity: 1;
+            transform: scale(1.05);
+            /* Slight enlargement when active */
+            display: block;
+        }
+
+        /* Glowing effect for the hover box text */
+        #hover-box p,
+        #hover-box-complexity p {
+            font-size: 1.4rem;
+            /* Slightly larger font */
+            color: white;
+            /* Basic white font */
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4);
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        /* Glowing effect and enlargement on hover */
+        #hover-box:hover p,
+        #hover-box-complexity:hover p {
+            transform: scale(1.1);
+            /* Enlarge the text on hover */
+            text-shadow: 0 0 12px rgba(255, 215, 0, 1),
+                0 0 24px rgba(255, 215, 0, 0.8),
+                0 0 36px rgba(255, 215, 0, 0.6);
+            /* Stronger glow */
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -241,17 +352,21 @@
 </head>
 
 <body>
-    <!-- Singular Value Decomposition Hover -->
-    <h2 onmouseover="showHoverBox()" onmouseout="hideHoverBox()">Complexity Aspect - Singular Value Decomposition
+    <!-- Title for Singular Value Decomposition -->
+    <div class="title-container">
+        <h2>Complexity Aspect - Singular Value Decomposition
+            <span class="question-mark" onclick="toggleHoverBox()">?</span>
+        </h2>
         <div id="hover-box">
-            The Complexity Aspects aim on generating three key things: Component, Interfaces, and Architecture,
-            by applying linear algebra techniques such as Singular Value Decomposition (SVD). These aspects help in
-            constructing System Complexity.
-            <br><br>
-            複雑性の側面は、3つの主要なコンポーネントを生成することを目的としている： SVD（特異値分解）のような線形代数技術を適用することで、
-            コンポーネント、インターフェイス、アーキテクチャの3つの主要コンポーネントを生成します。これらの側面は、システムの複雑性を構築するのに役立ちます。
+            <p>
+                The Complexity Aspects aim on generating three key things: Component, Interfaces, and Architecture,
+                by applying linear algebra techniques such as Singular Value Decomposition (SVD). These aspects help in
+                constructing System Complexity.
+                <br><br>
+                複雑性の側面は、SVD（特異値分解）のような線形代数技術を適用することで、コンポーネント、インターフェイス、アーキテクチャを生成することを目的としてます。これらの側面がシステムの複雑性を構築する上で役立つのです。
+            </p>
         </div>
-    </h2>
+    </div>
 
     <form id="dimension-form">
         <label for="rows">Number of Rows:</label>
@@ -280,16 +395,22 @@
             <li><span>Architecture:</span> <span id="architecture"></span></li>
         </ul>
     </div>
-    <!-- System Complexity Hover -->
-    <h2 id="complexity-title" onmouseover="showHoverBoxComplexity()" onmouseout="hideHoverBoxComplexity()">System
-        Complexity
+    <!-- Title for System Complexity -->
+    <div class="title-container">
+        <h2>Reduced Complexity
+            <span class="question-mark" onclick="toggleHoverBoxComplexity()">?</span>
+        </h2>
         <div id="hover-box-complexity">
-            Aim to Generate the System Complexity by leveraging Complexity Aspects and Normalized Value from
-            Multi-criteria Decision Making.
-            <br><br>
-            多基準の意思決定から複雑性の側面と正規化された値を活用することにより、システムの複雑性を生成することを目指す。
+            <p>
+                Aim to Generate the System Complexity by leveraging Complexity Aspects and Normalized Value from
+                Multi-criteria Decision Making.
+                <br><br>
+                多基準の意思決定から得た複雑性の側面と正規化された値を活用し
+
+                、システムの複雑性を生成することを目的としています。
+            </p>
         </div>
-    </h2>
+    </div>
 
     <form id="complexity-form" onsubmit="return computeComplexity();">
         <div class="input-group">
@@ -450,6 +571,25 @@
             document.getElementById('total_complexity').value = 0;
             document.getElementById('input-error').style.display = 'none';
             document.getElementById('compute-complexity').disabled = true;
+        }
+    </script>
+    <script>
+        function toggleHoverBox() {
+            const hoverBox = document.getElementById('hover-box');
+            if (hoverBox.classList.contains('active')) {
+                hoverBox.classList.remove('active');
+            } else {
+                hoverBox.classList.add('active');
+            }
+        }
+
+        function toggleHoverBoxComplexity() {
+            const hoverBox = document.getElementById('hover-box-complexity');
+            if (hoverBox.classList.contains('active')) {
+                hoverBox.classList.remove('active');
+            } else {
+                hoverBox.classList.add('active');
+            }
         }
     </script>
 </body>

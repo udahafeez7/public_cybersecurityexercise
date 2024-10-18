@@ -10,32 +10,55 @@
 
     <style>
         /* Title styling */
-        h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            text-align: center;
+        .title-container {
+            display: flex;
+            justify-content: center;
+            /* Center the title and question mark */
+            align-items: center;
             margin-bottom: 20px;
-            color: #ff0000;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
-        /* Glowing effect on hover */
-        h2:hover {
-            color: #f59d10;
-            text-shadow: 0 0 8px rgba(255, 99, 71, 0.8), 0 0 16px rgba(255, 99, 71, 0.8);
+        h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff9900;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            position: relative;
+        }
+
+        /* Smaller and closer question mark (superscript) */
+        .question-mark {
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #ff9900;
+            padding: 3px 6px;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+            position: relative;
+            top: -10px;
+            /* Position the superscript slightly higher */
+            transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Glowing effect on question mark hover */
+        .question-mark:hover {
+            background-color: #fff;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 16px rgba(255, 215, 0, 0.8);
         }
 
         /* Description box styling with glowing effect */
         #description-box {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #fff;
             text-align: center;
             margin: 20px auto;
             max-width: 800px;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
             opacity: 0;
             display: none;
             transition: opacity 0.5s ease-in-out, text-shadow 0.3s ease-in-out;
@@ -43,13 +66,13 @@
 
         /* Glowing effect inside the hover box */
         #description-box:hover {
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 16px rgba(255, 215, 0, 0.6);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 16px rgba(255, 215, 0, 0.8);
         }
 
-        /* Hover triggers the description box to appear */
-        h2:hover+#description-box {
-            display: block;
+        /* Ensure the box becomes visible on hover or click */
+        #description-box.active {
             opacity: 1;
+            display: block;
         }
 
         /* Error message styling (hover under the bar) */
@@ -90,25 +113,30 @@
             background-color: #e0ccff;
         }
     </style>
+
 </head>
 
 <body>
 
-    <h2 onmouseover="showDescription()">Multi-Criteria Decision Making - Fuzzy AHP</h2>
+    <div class="title-container">
+        <h2>
+            Multi-Criteria Decision Making - Fuzzy AHP
+            <span class="question-mark" onclick="toggleDescription()">?</span> <!-- Superscript question mark -->
+        </h2>
+    </div>
 
     <!-- Description box -->
     <div id="description-box">
         Fuzzy AHP is a decision-making method that helps prioritize objective elements, such as Confidentiality,
-        Integrity, Availability,
-        Authentication, Authorization, and Non-Repudiation, based on user inputs guided by expert opinions. it allows
-        for handling uncertainty
-        and ambiguity in judgments, providing a more accurate prioritization across multiple criteria, ensuring a
-        comprehensive evaluation
-        of security factors.
+        Integrity, Availability, Authentication, Authorization, and Non-Repudiation, based on user inputs guided by
+        expert opinions. It allows
+        for handling uncertainty and ambiguity in judgments, providing a more accurate prioritization across multiple
+        criteria, ensuring a comprehensive evaluation of security factors.
         <br><br>
-        ファジーAHPは、専門家の意見に導かれたユーザー入力に基づいて、機密性、完全性、可用性、認証、認可、否認防止などの客観的要素の優先順位付けを支援する意思決定手法である。
-        ファジーAHPは、判断の不確実性やあいまいさを処理することを可能にし、複数の基準にわたってより正確な優先順位付けを提供し、セキュリティ要素の包括的な評価を保証する。
+        ファジーAHPは、専門家の意見のもと、ユーザー入力に基づいて、機密性、完全性、可用性、認証、認可、否認防止などの客観的要素の優先順位付けを支援する意思決定手法である。
+        ファジーAHPは、判断の不確実性やあいまいさに対応することを可能にし、複数の基準にわたってより正確な優先順位付けを提供し、セキュリティ要素の包括的な評価を保証する。
     </div>
+
 
     <table id="matrix">
         <thead>
@@ -288,6 +316,11 @@
 
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script>
+        // Function to toggle the description box
+        function toggleDescription() {
+            const descriptionBox = document.getElementById('description-box');
+            descriptionBox.classList.toggle('active');
+        }
         // Function to validate inputs between 0.111111 and 9, excluding 0
         function validateInput(inputElement) {
             const value = parseFloat(inputElement.value);

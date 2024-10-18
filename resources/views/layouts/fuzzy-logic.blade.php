@@ -21,21 +21,18 @@
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: relative;
         }
 
         h1 {
-            color: red;
+            color: #ff9900;
             font-weight: bold;
             position: relative;
             display: inline-block;
             cursor: pointer;
             transition: color 0.3s ease, text-shadow 0.3s ease;
-            font-size: 2.5em;
+            font-size: 2.5rem;
             margin-bottom: 30px;
         }
 
@@ -44,39 +41,65 @@
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
         }
 
+        /* Superscript question mark styling */
+        .question-mark {
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #ff9900;
+            padding: 3px 6px;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+            position: relative;
+            top: -10px;
+            transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .question-mark:hover {
+            background-color: #fff;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 16px rgba(255, 215, 0, 0.8);
+        }
+
         /* Hover box styling */
         #hover-box {
             display: none;
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            box-sizing: border-box;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            font-size: 0.8em;
-            transition: font-size 0.2s ease;
+            font-size: 1.2rem;
+            color: #fff;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, text-shadow 0.3s ease-in-out;
         }
 
-        /* Magnify the hover box text when hovering within */
-        #hover-box:hover {
-            font-size: 1em;
+        /* White text with glowing gold effect when hovered */
+        #hover-box p {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 1), 0 0 16px rgba(255, 255, 255, 1);
+            transition: font-size 0.3s ease, text-shadow 0.3s ease;
         }
 
-        /* Style for the question mark near the title */
-        .tooltip-icon {
-            font-size: 0.8em;
-            /* Smaller size */
-            cursor: pointer;
-            margin-left: 5px;
-            /* Closer to the title */
-            color: gray;
-            vertical-align: super;
-            /* Align it higher like a superscript */
+        /* When hovered, text enlarges and glows gold */
+        #hover-box p:hover {
+            color: #ffd700;
+            text-shadow: 0 0 16px rgba(255, 215, 0, 1), 0 0 32px rgba(255, 215, 0, 1);
+            font-size: 1.4rem;
+        }
+
+        #hover-box.active {
+            opacity: 1;
+            display: block;
+        }
+
+        #hover-box p:hover {
+            color: #ffd700;
+            text-shadow: 0 0 16px rgba(255, 215, 0, 1), 0 0 32px rgba(255, 215, 0, 1);
+            font-size: 1.4rem;
         }
 
         .input-group {
@@ -149,17 +172,20 @@
 <body>
 
     <div class="container">
-        <!-- Fuzzy Logic Risk Assessment Title with Question Mark -->
+        <!-- Fuzzy Logic Risk Assessment Title with Superscript Question Mark -->
         <h1>Fuzzy Logic Risk Assessment
-            <span class="tooltip-icon" onclick="toggleHoverBox()">❓</span> <!-- Clickable Question Mark -->
-            <div id="hover-box">
+            <span class="question-mark" onclick="toggleHoverBox()">❓</span>
+        </h1>
+
+        <!-- Description box -->
+        <div id="hover-box">
+            <p>
                 The risk level is estimated by combining the system complexity and three aspects: impact, base score,
-                and
-                exploitability using Common Vulnerability Enumeration.
+                and exploitability using Common Vulnerability Enumeration.
                 <br><br>
                 リスクレベルは、共通脆弱性列挙法を用いて、システムの複雑さと、影響度、基本スコア、悪用可能性の3つの側面を組み合わせて推定される。
-            </div>
-        </h1>
+            </p>
+        </div>
 
         <!-- Reduced Complexity Information Slider -->
         <div class="input-group">
@@ -209,10 +235,11 @@
             </div>
         </div>
 
-        <!-- Compute Risk Button -->
         <div class="buttons">
             <button class="compute" onclick="computeRisk()">Compute Risk</button>
+            <button class="reset" onclick="resetInputs()">Reset</button> <!-- Reset Button -->
         </div>
+
 
         <!-- Output -->
         <div class="output">
@@ -228,19 +255,7 @@
     <script>
         function toggleHoverBox() {
             const hoverBox = document.getElementById('hover-box');
-            if (hoverBox.style.display === 'block') {
-                hoverBox.style.display = 'none';
-            } else {
-                hoverBox.style.display = 'block';
-            }
-        }
-
-        function showHoverBox() {
-            document.getElementById('hover-box').style.display = 'block';
-        }
-
-        function hideHoverBox() {
-            document.getElementById('hover-box').style.display = 'none';
+            hoverBox.classList.toggle('active');
         }
     </script>
 </body>
