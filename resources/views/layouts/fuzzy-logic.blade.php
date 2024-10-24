@@ -180,7 +180,7 @@
         <!-- Description box -->
         <div id="hover-box">
             <p>
-                The risk level is estimated by combining the system complexity and three aspects: impact, base score,
+                The risk level is estimated by combining reduced complexity and three aspects: impact, base score,
                 and exploitability using Common Vulnerability Enumeration.
                 <br><br>
                 リスクレベルは、共通脆弱性列挙法を用いて、システムの複雑さと、影響度、基本スコア、悪用可能性の3つの側面を組み合わせて推定される。

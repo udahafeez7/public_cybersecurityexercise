@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('sum-total').textContent = totalSum.toFixed(4);
     }
 
-    // Validate input values and show pop-up
+    // Validate input values and change background color
     window.validateInput = function (input) {
         const value = parseFloat(input.value);
         if (value < 0 || value > 3) {
@@ -122,7 +122,12 @@ document.addEventListener('DOMContentLoaded', function () {
             input.value = ''; // Clear invalid input
             alert('The value must be between 0 and 3');
         } else {
-            input.style.backgroundColor = '';
+            // Change background color to brown if value is between 0 and 3
+            if (value >= 0 && value <= 3) {
+                input.style.backgroundColor = 'gold';
+            } else {
+                input.style.backgroundColor = ''; // Reset to default if value changes outside the range
+            }
         }
     }
 });

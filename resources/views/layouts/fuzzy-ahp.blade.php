@@ -300,7 +300,7 @@
 
     <!-- Priority Table -->
     <div id="priority-table-container" style="display:none;">
-        <h3 style="text-align: center;">Priority Table</h3>
+        <h3 style="text-align: center;">Fuzzy AHP Priority Table</h3>
         <table id="priority-table">
             <thead>
                 <tr>

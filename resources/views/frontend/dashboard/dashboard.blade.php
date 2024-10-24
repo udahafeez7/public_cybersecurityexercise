@@ -278,7 +278,7 @@
                                             <div class="list-card-body">
                                                 <h6 class="mb-1">
                                                     <a href="{{ route('tasks.domain-mapping') }}"
-                                                        class="text-black">System Complexity</a>
+                                                        class="text-black">Reduced System Complexity</a>
                                                 </h6>
                                                 <p class="text-gray mb-3">Best Practice • Assets • Domain Mapping
                                                     Matrix</p>
