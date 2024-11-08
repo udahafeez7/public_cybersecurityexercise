@@ -83,14 +83,15 @@
                         <div class="tab-pane fade" id="preassessment" role="tabpanel"
                             aria-labelledby="preassessment-tab">
                             <h4 class="font-weight-bold mt-0 mb-4">Pre Training Activities</h4>
-                            <div class="bg-white card mb-4 order-list shadow-sm">
-                                <div class="gold-members p-4">
+                            <div class="bg-white card mb-8 order-list shadow-lg"
+                                style="padding: 20px; min-height: 400px;">
+                                <div class="gold-members p-9">
                                     <a href="#">
                                         <div class="media">
                                             <img class="mr-4" src="{{ asset('frontend/img/3.jpg') }}"
                                                 alt="Pre Training Exercise">
                                             <div class="media-body">
-                                                <h6 class="mb-2">
+                                                <h6 class="mb-8">
                                                     <a href="https://forms.gle/6ph8XYdKFchDLgqr9" target="_blank"
                                                         class="text-black"
                                                         style="font-size: 1.5rem; font-weight: bold; color: #db1111; text-decoration: none; padding: 8px 12px; display: inline-block; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease;">
@@ -139,9 +140,9 @@
                             <h4 class="font-weight-bold mt-0 mb-4">Self-Paced Learning Material</h4>
 
                             <!-- Learning Material Cards -->
-                            <div class="row mb-4 pb-2">
-                                <div class="col-md-6">
-                                    <div class="card offer-card shadow-sm">
+                            <div class="row mb-20 pb-2">
+                                <div class="col-md-8">
+                                    <div class="card offer-card shadow-lg">
                                         <div class="card-body">
                                             <img src="{{ asset('frontend/img/list/2.png') }}" class="img-fluid w-100"
                                                 alt="MCDM">
@@ -333,15 +334,16 @@
                         <!-- Post-assessment Section -->
                         <div class="tab-pane fade" id="postassessment" role="tabpanel"
                             aria-labelledby="postassessment-tab">
-                            <h4 class="font-weight-bold mt-0 mb-4">Post Training Activities</h4>
-                            <div class="bg-white card mb-4 order-list shadow-sm">
-                                <div class="gold-members p-4">
+                            <h4 class="font-weight-bold mt-0 mb-8">Post Training Activities</h4>
+                            <div class="bg-white card mb-8 order-list shadow-lg"
+                                style="padding: 20px; min-height: 400px;">
+                                <div class="gold-members p-9">
                                     <a href="#">
                                         <div class="media">
                                             <img class="mr-4" src="{{ asset('frontend/img/3.jpg') }}"
                                                 alt="Post Training Exercise">
                                             <div class="media-body">
-                                                <h6 class="mb-2">
+                                                <h6 class="mb-6">
                                                     <a href="https://forms.gle/TF1x4H98BbMQzqLR8" class="text-black"
                                                         style="font-size: 1.5rem; font-weight: bold; color: #db1111; text-decoration: none; padding: 8px 12px; display: inline-block; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease;">
                                                         Post Training Exercise Questionnaire
@@ -386,11 +388,15 @@
                         </div>
 
                         <!-- Addresses Section -->
-                        <div class="tab-pane fade" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
-                            <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+                        <div class="tab-pane fade center-content" id="addresses" role="tabpanel"
+                            aria-labelledby="addresses-tab">
+                            <h4 class="font-weight-bold text-center" style="padding: 10px; min-height: 250px;">Manage
+                                Addresses</h4>
                             <div class="row">
+                                <!-- First Address Box -->
                                 <div class="col-md-6">
-                                    <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                                    <div
+                                        class="bg-white card addresses-item mb-4 border border-primary shadow address-card">
                                         <div class="gold-members p-4">
                                             <div class="media">
                                                 <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
@@ -398,35 +404,21 @@
                                                     <h6 class="mb-1 text-secondary">Cyber Resilience Lab</h6>
                                                     <p class="text-black">3rd Floor, Building A, 8916-5 Takayama,
                                                         Ikoma, Nara 630-0192, Japan</p>
-                                                    <p class="mb-0 text-black font-weight-bold">
-                                                        <a class="text-primary mr-3" data-toggle="modal"
-                                                            data-target="#add-address-modal" href="#"><i
-                                                                class="icofont-ui-edit"></i> EDIT</a>
-                                                        <a class="text-danger" data-toggle="modal"
-                                                            data-target="#delete-address-modal" href="#"><i
-                                                                class="icofont-ui-delete"></i> DELETE</a>
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Second Address Box -->
                                 <div class="col-md-6">
-                                    <div class="bg-white card addresses-item mb-4 shadow-sm">
+                                    <div class="bg-white card addresses-item mb-4 shadow-sm address-card">
                                         <div class="gold-members p-4">
                                             <div class="media">
                                                 <div class="mr-3"><i class="icofont-briefcase icofont-3x"></i></div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">ICSCoE Japan</h6>
                                                     <p>2-28-8 Honkomagome, Bunkyo-ku, Tokyo, Japan 113-6591</p>
-                                                    <p class="mb-0 text-black font-weight-bold">
-                                                        <a class="text-primary mr-3" data-toggle="modal"
-                                                            data-target="#add-address-modal" href="#"><i
-                                                                class="icofont-ui-edit"></i> EDIT</a>
-                                                        <a class="text-danger" data-toggle="modal"
-                                                            data-target="#delete-address-modal" href="#"><i
-                                                                class="icofont-ui-delete"></i> DELETE</a>
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -435,12 +427,29 @@
                             </div>
                         </div>
 
+
                     </div> <!-- End of Tab Content -->
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- CSS for Hover Effect with Glowing Gold Effect -->
+<style>
+    /* Address card hover effect */
+    .address-card {
+        transition: all 0.3s ease;
+    }
+
+    .address-card:hover {
+        background-color: #ffd700;
+        /* Gold background on hover */
+        box-shadow: 0px 0px 15px 5px rgba(255, 215, 0, 0.6), 0px 0px 20px 10px rgba(255, 215, 0, 0.4);
+        /* Glowing effect */
+        transform: scale(1.02);
+        /* Slightly enlarge on hover */
+    }
+</style>
 
 <script type="text/javascript">
     $(document).ready(function() {

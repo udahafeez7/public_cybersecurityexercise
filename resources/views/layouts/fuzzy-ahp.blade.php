@@ -1,4 +1,5 @@
 @include('frontend.dashboard.header')
+
 <!DOCTYPE html>
 <html lang="en">
 

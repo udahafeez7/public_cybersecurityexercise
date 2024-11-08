@@ -22,20 +22,28 @@
     <style>
         /* Enhanced Navbar Styling */
         .navbar {
-            background-color: #f8f9fa;
-            padding: 5px 15px;
-            /* Reduced padding for a smaller header size */
+            background-color: #d09414;
+            padding: 15px 15px;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            width: calc(100% - 265px);
+            /* Slightly expanded width */
+            margin-left: 280px;
+            /* Reduced distance from sidebar */
+            border-bottom: 2px solid #ffd666;
+            /* Subtle border for aesthetics */
         }
 
         .navbar-brand {
-            margin-left: 0;
+            margin-right: 0;
         }
 
         .navbar-brand img {
-            width: 180px;
-            /* Reduced logo size for a smaller header */
-            height: 140px;
+            width: 150px;
+            /* Slightly larger logo */
+            height: auto;
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
@@ -48,15 +56,15 @@
         .navbar-nav .nav-link {
             font-size: 14px;
             color: #333;
-            font-weight: 400;
-            padding: 6px 14px;
+            font-weight: 500;
+            padding: 8px 16px;
             transition: all 0.3s ease;
+            border-radius: 5px;
         }
 
         .navbar-nav .nav-link:hover {
             color: #007bff;
             background-color: #e0e0e0;
-            border-radius: 8px;
         }
 
         .navbar-nav .nav-link.active {
@@ -119,42 +127,41 @@
 
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light osahan-nav shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
-                <img alt="logo" src="{{ asset('frontend/img/logo.png') }}">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
-                    </li>
+        <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <img alt="logo" src="{{ asset('frontend/img/logo.png') }}">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
+                </li>
 
-                    @php
-                        $id = Auth::user()->id;
-                        $profileData = App\Models\User::find($id);
-                    @endphp
+                @php
+                    $id = Auth::user()->id;
+                    $profileData = App\Models\User::find($id);
+                @endphp
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <img alt="Profile image"
-                                src="{{ !empty($profileData->photo) ? url('upload/user_images/' . $profileData->photo) : url('upload/no_image.jpg') }}">
-                            My Account
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow-sm border-0">
-                            <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="icofont-food-cart"></i>
-                                Dashboard</a>
-                            <a class="dropdown-item" href="{{ route('user.logout') }}"><i
-                                    class="icofont-sale-discount"></i> Want to Quit?</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img alt="Profile image"
+                            src="{{ !empty($profileData->photo) ? url('upload/user_images/' . $profileData->photo) : url('upload/no_image.jpg') }}">
+                        My Account
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow-sm border-0">
+                        <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="icofont-food-cart"></i>
+                            Dashboard</a>
+                        <a class="dropdown-item" href="{{ route('user.logout') }}"><i
+                                class="icofont-sale-discount"></i> Want to Quit?</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
 

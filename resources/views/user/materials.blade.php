@@ -2,10 +2,10 @@
 
 
 @section('content')
-    <div class="container mx-auto py-8">
+    <div class="container mx-auto py-12">
         <!-- Enlarged title -->
         <h1
-            class="text-center text-5xl font-extrabold text-gray-800 mb-12 transition-all duration-500 ease-in-out transform hover:scale-110">
+            class="text-center text-8xl font-extrabold text-gray-800 mb-12 transition-all duration-500 ease-in-out transform hover:scale-110">
             Learning Materials
         </h1>
 
