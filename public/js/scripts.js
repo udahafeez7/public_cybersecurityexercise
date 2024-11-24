@@ -145,18 +145,25 @@ function setupMatrix() {
         for (let j = 0; j < 6; j++) {
             let cell = document.getElementById(`cell-${i}-${j}`);
             if (i === j) {
-                cell.value = 1;
+                cell.value = 1; // Set diagonal to 1
                 cell.disabled = true;
+                cell.style.backgroundColor = ""; // Ensure no background color for diagonal cells
+            } else if (j > i) {
+                cell.disabled = true; // Disable the right-side cells
+                cell.style.backgroundColor = "#f0f0f0"; // Apply light gray background
+                cell.value = ""; // Ensure value is empty
             } else {
-                cell.value = ""; // Set default value as blank
+                cell.value = ""; // Ensure default value is blank
+                cell.style.backgroundColor = ""; // No background color for left-side cells
                 cell.addEventListener("input", function() {
-                    updateSpecificReciprocals();
+                    updateSpecificReciprocals(); // Handle input changes
                 });
             }
         }
     }
     updateSum();
 }
+
 
 function resetMatrix() {
     // Reset the matrix inputs
