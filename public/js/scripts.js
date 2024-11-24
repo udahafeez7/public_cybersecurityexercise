@@ -33,13 +33,22 @@ function updateReciprocalMatrix() {
                 let cell = document.getElementById(`cell-${i}-${j}`);
                 let value = parseFloat(cell.value);
                 let reciprocalCell = document.getElementById(`cell-${j}-${i}`);
+
                 if (isNaN(value) || !isValidValue(value)) {
                     cell.value = "";
                     reciprocalCell.value = "";
                     reciprocalCell.disabled = false;
+
+                    // Reset cell backgrounds
+                    cell.style.backgroundColor = "";
+                    reciprocalCell.style.backgroundColor = "";
                 } else {
                     reciprocalCell.value = (1 / value).toFixed(4);
                     reciprocalCell.disabled = true;
+
+                    // Highlight the cell and its reciprocal in solid gold
+                    cell.style.backgroundColor = "gold";
+                    reciprocalCell.style.backgroundColor = "gold";
                 }
             }
         }
@@ -55,6 +64,10 @@ function updateSpecificReciprocals() {
         if (cell.value) {
             reciprocalCell.value = (1 / parseFloat(cell.value)).toFixed(4);
             reciprocalCell.disabled = true;
+
+            // Highlight the cell and its reciprocal in solid gold
+            cell.style.backgroundColor = "gold";
+            reciprocalCell.style.backgroundColor = "gold";
         }
     }
 
@@ -64,6 +77,10 @@ function updateSpecificReciprocals() {
         if (cell.value) {
             reciprocalCell.value = (1 / parseFloat(cell.value)).toFixed(4);
             reciprocalCell.disabled = true;
+
+            // Highlight the cell and its reciprocal in solid gold
+            cell.style.backgroundColor = "gold";
+            reciprocalCell.style.backgroundColor = "gold";
         }
     }
 
@@ -73,6 +90,10 @@ function updateSpecificReciprocals() {
         if (cell.value) {
             reciprocalCell.value = (1 / parseFloat(cell.value)).toFixed(4);
             reciprocalCell.disabled = true;
+
+            // Highlight the cell and its reciprocal in solid gold
+            cell.style.backgroundColor = "gold";
+            reciprocalCell.style.backgroundColor = "gold";
         }
     }
 
@@ -82,6 +103,10 @@ function updateSpecificReciprocals() {
         if (cell.value) {
             reciprocalCell.value = (1 / parseFloat(cell.value)).toFixed(4);
             reciprocalCell.disabled = true;
+
+            // Highlight the cell and its reciprocal in solid gold
+            cell.style.backgroundColor = "gold";
+            reciprocalCell.style.backgroundColor = "gold";
         }
     }
 
@@ -91,6 +116,10 @@ function updateSpecificReciprocals() {
         if (cell.value) {
             reciprocalCell.value = (1 / parseFloat(cell.value)).toFixed(4);
             reciprocalCell.disabled = true;
+
+            // Highlight the cell and its reciprocal in solid gold
+            cell.style.backgroundColor = "gold";
+            reciprocalCell.style.backgroundColor = "gold";
         }
     }
 
