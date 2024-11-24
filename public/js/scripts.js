@@ -170,6 +170,9 @@ function resetMatrix() {
                 cell.value = "";
                 cell.disabled = false;
             }
+
+            // Reset the cell background color
+            cell.style.backgroundColor = ""; // Clear any applied colors
         }
     }
 
@@ -193,6 +196,7 @@ function resetMatrix() {
     document.getElementById('sum-normalized').textContent = '0.0';
     document.getElementById('sum-center').textContent = '0.0';
 }
+
 
 
 function editMatrix() {
@@ -230,8 +234,19 @@ function createPriorityTable(normalizedValues) {
     const priorityTable = document.getElementById('priority-table').querySelector('tbody');
     priorityTable.innerHTML = ''; // Clear any previous content
 
+    // Define base color and step for degradation
+    const baseColor = { r: 245, g: 245, b: 220 }; // Light beige
+    const colorStep = 5; // Step for color degradation
+
     normalizedValues.forEach((item, index) => {
         const row = document.createElement('tr');
+
+        // Calculate the color for this row based on the index
+        const rowColor = `rgb(${Math.max(baseColor.r - index * colorStep, 230)},
+                              ${Math.max(baseColor.g - index * colorStep, 230)},
+                              ${Math.max(baseColor.b - index * colorStep, 200)})`;
+        row.style.backgroundColor = rowColor;
+
         row.innerHTML = `
             <td>${item.value}</td>
             <td>${item.criterion}</td>
@@ -243,6 +258,8 @@ function createPriorityTable(normalizedValues) {
     // Display the priority table
     document.getElementById('priority-table-container').style.display = 'block';
 }
+
+
 
 document.getElementById('compute-ahp').addEventListener('click', function() {
     const matrix = [
