@@ -361,9 +361,10 @@
             <p>
                 The Complexity Aspects aim on generating three key things: Component, Interfaces, and Architecture,
                 by applying linear algebra techniques such as Singular Value Decomposition (SVD). These aspects help in
-                constructing System Complexity.
+                constructing Reduced Complexity Information.
                 <br><br>
-                複雑性の側面は、SVD（特異値分解）のような線形代数技術を適用することで、コンポーネント、インターフェイス、アーキテクチャを生成することを目的としてます。これらの側面がシステムの複雑性を構築する上で役立つのです。
+                複雑さの側面は、SVD (特異値分解) などの線形代数手法を適用することで、コンポーネント、インターフェイス、アーキテクチャという
+                3 つの重要なものを生み出すことを目的としています。これらの側面は、複雑さの軽減された情報を構築するのに役立ちます。
             </p>
         </div>
     </div>
@@ -402,12 +403,10 @@
         </h2>
         <div id="hover-box-complexity">
             <p>
-                Aim to Generate the System Complexity by leveraging Complexity Aspects and Normalized Value from
-                Multi-criteria Decision Making.
+                Aim to Generate the Reduced Complexity Information by leveraging Complexity Aspects and Priority Aspects
+                from Multi-criteria Decision Making.
                 <br><br>
-                多基準の意思決定から得た複雑性の側面と正規化された値を活用し
-
-                、システムの複雑性を生成することを目的としています。
+                多基準意思決定から複雑性の側面と優先順位の側面を活用することで、複雑性の低減された情報を生成することを目指す。
             </p>
         </div>
     </div>
@@ -465,7 +464,7 @@
             <li><span>Interface Complexity:</span> <span id="interface_complexity"></span></li>
             <li><span>Architecture Complexity:</span> <span id="architecture_complexity"></span></li>
             <li><span>Total System Complexity:</span> <span id="total_system_complexity"></span></li>
-            <li><span>Complexity Level:</span> <span id="complexity_level"></span></li>
+            <li><span>The Reduced Complexity Information Level:</span> <span id="complexity_level"></span></li>
         </ul>
         <div class="bar-container">
             <div id="complexity-bar" class="bar"></div>

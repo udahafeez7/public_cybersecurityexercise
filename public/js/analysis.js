@@ -166,7 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const npv = cumulativeBenefit - cumulativeCost;
         const bcr = cumulativeBenefit / cumulativeCost;
-        const irr = calculateIRR([expectedValue].concat(totalBenefitPerYear.map((benefit, i) => benefit - totalCostPerYear[i])));
+        const cashFlows = [-initialInvestment]; // Start with the initial investment as a negative value
+for (let i = 1; i <= years; i++) {
+    const costPerYear = calculatePerColumn('cost', i); // Annual costs
+    const benefitPerYear = calculatePerColumn('benefit', i); // Annual benefits
+    cashFlows.push(benefitPerYear - costPerYear); // Net cash flow (Benefit - Cost)
+}
+
+const irr = calculateIRR(cashFlows); // Compute IRR based on the derived cash flows
 
         // Update the displayed values
         npvDisplay.innerText = `$${npv.toFixed(2)}`;
@@ -206,34 +213,42 @@ document.addEventListener('DOMContentLoaded', () => {
         return value * discountFactor;
     }
 
-    // IRR calculation function
     function calculateIRR(cashFlows) {
-        let irr = 0.1; // Initial guess
-        const precision = 0.00001; // Desired precision
-        const maxIterations = 100;
-        let iteration = 0;
+        const maxIterations = 10000; // Increased maximum iterations
+        const precision = 1e-6; // Higher precision for convergence
+        let guess = 0.1; // Initial guess (10%)
 
-        while (iteration < maxIterations) {
+        for (let iteration = 0; iteration < maxIterations; iteration++) {
             let npv = 0;
-            for (let t = 0; t < cashFlows.length; t++) {
-                npv += cashFlows[t] / Math.pow(1 + irr, t);
-            }
-
-            if (Math.abs(npv) < precision) {
-                return irr * 100; // Return IRR as a percentage
-            }
-
             let derivative = 0;
-            for (let t = 1; t < cashFlows.length; t++) {
-                derivative -= t * cashFlows[t] / Math.pow(1 + irr, t + 1);
+
+            // Calculate NPV and its derivative
+            for (let t = 0; t < cashFlows.length; t++) {
+                npv += cashFlows[t] / Math.pow(1 + guess, t);
+                if (t > 0) {
+                    derivative -= t * cashFlows[t] / Math.pow(1 + guess, t + 1);
+                }
             }
 
-            irr -= npv / derivative;
-            iteration++;
+            // Check if the current guess is close enough
+            if (Math.abs(npv) < precision) {
+                return guess * 100; // Return IRR as a percentage
+            }
+
+            // Avoid division by zero or flat derivative
+            if (Math.abs(derivative) < precision) {
+                break;
+            }
+
+            // Update guess using Newton-Raphson method
+            guess -= npv / derivative;
         }
 
-        return irr * 100; // Return IRR as a percentage
+        return NaN; // If iterations fail to converge
     }
+
+
+
 
     // Graph generation for total cost vs total benefit
     function generateNetBenefitChart(totalCostPerYear, totalBenefitPerYear) {
