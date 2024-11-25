@@ -4,28 +4,28 @@ document.addEventListener('DOMContentLoaded', function () {
         computeComplexity();
     });
 
-    // Add styles for the graphic bar dynamically
+    // Add enlarged styles for the graphic bar dynamically
     const style = document.createElement('style');
     style.innerHTML = `
         .bar-container {
             position: relative;
             background-color: #e0e0e0;
-            border-radius: 15px;
-            height: 30px;
-            width: 80%;
-            margin: 20px auto;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 20px; /* More rounded */
+            height: 50px; /* Increased height */
+            width: 90%; /* Increased width */
+            margin: 30px auto; /* More space around */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Slightly heavier shadow */
         }
 
         .bar {
             position: absolute;
             height: 100%;
-            border-radius: 15px;
+            border-radius: 20px; /* Matches the container */
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.4em; /* Enlarged font size */
             color: #fff;
             transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
         }
@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .bar-container::before {
             content: "Complexity Level";
             position: absolute;
-            top: -25px;
+            top: -35px; /* Adjusted for larger size */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 14px;
+            font-size: 16px; /* Slightly larger font */
             color: #555;
             font-weight: bold;
         }
