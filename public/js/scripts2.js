@@ -119,10 +119,11 @@ function computeRisk() {
     const rule6 = Math.min(systemComplexityHigh, impactMedium, baseScoreLow, exploitabilityMedium);
     const rule7 = Math.min(systemComplexityMedium, impactCritical, baseScoreMedium, exploitabilityMedium);
     const rule8 = Math.min(systemComplexityLow, impactHigh, baseScoreLow, exploitabilityHigh);
+    const rule9 = Math.min(systemComplexityHigh, impactMedium, baseScoreMedium, exploitabilityLow); // New Rule
 
     // Aggregating risk values (Defuzzification using weighted average)
-    const riskValue = (rule1 * 20 + rule2 * 55 + rule3 * 80 + rule4 * 100 + rule5 * 80 + rule6 * 55 + rule7 * 75 + rule8 * 30) /
-        (rule1 + rule2 + rule3 + rule4 + rule5 + rule6 + rule7 + rule8);
+    const riskValue = (rule1 * 20 + rule2 * 55 + rule3 * 80 + rule4 * 100 + rule5 * 80 + rule6 * 55 + rule7 * 75 + rule8 * 30 + rule9 * 55) /
+        (rule1 + rule2 + rule3 + rule4 + rule5 + rule6 + rule7 + rule8 + rule9);
 
     // Determine the risk level
     let riskLevel = '';
@@ -142,6 +143,8 @@ function computeRisk() {
     // Update chart
     updateRiskChart(riskValue);
 }
+
+
 
 // Chart.js configuration
 const ctx = document.getElementById('riskChart').getContext('2d');

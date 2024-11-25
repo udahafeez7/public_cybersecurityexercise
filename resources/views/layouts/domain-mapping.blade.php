@@ -414,46 +414,45 @@
     <form id="complexity-form" onsubmit="return computeComplexity();">
         <div class="input-group">
             <label for="availability">Availability</label>
-            <input type="number" id="availability" min="0" max="1" step="0.0001" value="0"
+            <input type="number" id="availability" min="0" max="1" step="0.000001" value="0"
                 oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="non_repudiation">Non-Repudiation</label>
-            <input type="number" id="non_repudiation" min="0" max="1" step="0.0001" value="0"
+            <input type="number" id="non_repudiation" min="0" max="1" step="0.000001" value="0"
                 oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="integrity">Integrity</label>
-            <input type="number" id="integrity" min="0" max="1" step="0.0001" value="0"
+            <input type="number" id="integrity" min="0" max="1" step="0.000001" value="0"
                 oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="authentication">Authentication</label>
-            <input type="number" id="authentication" min="0" max="1" step="0.0001" value="0"
+            <input type="number" id="authentication" min="0" max="1" step="0.000001" value="0"
                 oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="authorization">Authorization</label>
-            <input type="number" id="authorization" min="0" max="1" step="0.0001" value="0"
+            <input type="number" id="authorization" min="0" max="1" step="0.000001" value="0"
                 oninput="calculateTotalComplexity()">
         </div>
         <div class="input-group">
             <label for="confidentiality">Confidentiality</label>
-            <input type="number" id="confidentiality" min="0" max="1" step="0.0001" value="0"
+            <input type="number" id="confidentiality" min="0" max="1" step="0.000001" value="0"
                 oninput="calculateTotalComplexity()">
         </div>
 
-        <!-- Display total complexity sum -->
         <div class="input-group">
             <label for="total_complexity">Total Complexity</label>
             <input type="number" id="total_complexity" disabled value="0">
         </div>
         <div class="error" id="input-error">The sum of all inputs must be 1.</div>
 
-        <!-- Buttons for Complexity -->
         <button type="submit" id="compute-complexity">Compute Complexity</button>
         <button type="button" id="reset-complexity" onclick="resetComplexityInputs()">Reset</button>
     </form>
+
 
 
 
