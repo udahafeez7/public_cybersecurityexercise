@@ -120,29 +120,33 @@ function computeRisk() {
     const rule7 = Math.min(systemComplexityMedium, impactCritical, baseScoreMedium, exploitabilityMedium);
     const rule8 = Math.min(systemComplexityLow, impactHigh, baseScoreLow, exploitabilityHigh);
     const rule9 = Math.min(systemComplexityHigh, impactMedium, baseScoreMedium, exploitabilityLow); // New Rule
+    const rule10 = Math.min(systemComplexityHigh, impactMedium, baseScoreHigh, exploitabilityLow); // High Complexity, Medium Impact, High Base Score, Low Exploitability
+    const rule11 = Math.min(systemComplexityVeryHigh, impactHigh, baseScoreHigh, exploitabilityMedium); // Very High Complexity, High Impact, High Base Score, Medium Exploitability
 
     // Aggregating risk values (Defuzzification using weighted average)
-    const riskValue = (rule1 * 20 + rule2 * 55 + rule3 * 80 + rule4 * 100 + rule5 * 80 + rule6 * 55 + rule7 * 75 + rule8 * 30 + rule9 * 55) /
-        (rule1 + rule2 + rule3 + rule4 + rule5 + rule6 + rule7 + rule8 + rule9);
+    const riskValue = (rule1 * 20 + rule2 * 55 + rule3 * 80 + rule4 * 100 + rule5 * 80 + rule6 * 55 +
+                       rule7 * 75 + rule8 * 30 + rule9 * 55 + rule10 * 74 + rule11 * 85) /
+                      (rule1 + rule2 + rule3 + rule4 + rule5 + rule6 + rule7 + rule8 + rule9 + rule10 + rule11);
 
-    // Determine the risk level
-    let riskLevel = '';
-    if (riskValue >= 90) {
-        riskLevel = 'Catastrophic Risk';
-    } else if (riskValue >= 70) {
-        riskLevel = 'High Risk';
-    } else if (riskValue >= 40) {
-        riskLevel = 'Medium Risk';
-    } else {
-        riskLevel = 'Low Risk';
-    }
+     // Determine the risk level
+     let riskLevel = '';
+     if (riskValue >= 90) {
+         riskLevel = 'Catastrophic Risk';
+     } else if (riskValue >= 70) {
+         riskLevel = 'High Risk';
+     } else if (riskValue >= 40) {
+         riskLevel = 'Medium Risk';
+     } else {
+         riskLevel = 'Low Risk';
+     }
 
-    document.getElementById("risk_value").textContent = isNaN(riskValue) ? '-' : riskValue.toFixed(2);
-    document.getElementById("risk_level").textContent = isNaN(riskValue) ? '-' : riskLevel;
+     document.getElementById("risk_value").textContent = isNaN(riskValue) ? '-' : riskValue.toFixed(2);
+     document.getElementById("risk_level").textContent = isNaN(riskValue) ? '-' : riskLevel;
 
-    // Update chart
-    updateRiskChart(riskValue);
-}
+     // Update chart
+     updateRiskChart(riskValue);
+ }
+
 
 
 

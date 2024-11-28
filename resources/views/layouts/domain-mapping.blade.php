@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singular Value Decomposition & System Complexity</title>
+    <title>Singular Value Decomposition & Reduced Complexity Information</title>
     <style>
         /* Ensure the title container is centered */
         .title-container {

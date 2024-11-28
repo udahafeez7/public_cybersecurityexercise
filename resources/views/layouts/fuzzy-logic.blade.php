@@ -135,6 +135,8 @@
             display: flex;
             justify-content: center;
             margin-top: 20px;
+            gap: 20px;
+            /* Add spacing between buttons */
         }
 
         button {
@@ -144,6 +146,11 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        button.reset {
+            background-color: #FF5733;
+            /* Different color for Reset button */
         }
 
         .output {
@@ -263,3 +270,34 @@
 </html>
 
 @include('frontend.dashboard.footer')
+
+<script>
+    function resetInputs() {
+        // Reset all sliders and inputs to 0
+        document.getElementById('system_complexity').value = 0;
+        document.getElementById('system_complexity_input').value = 0;
+        document.getElementById('impact').value = 0;
+        document.getElementById('impact_input').value = 0;
+        document.getElementById('base_score').value = 0;
+        document.getElementById('base_score_input').value = 0;
+        document.getElementById('exploitability').value = 0;
+        document.getElementById('exploitability_input').value = 0;
+
+        // Reset displayed risk values
+        document.getElementById('risk_value').textContent = '-';
+        document.getElementById('risk_level').textContent = '-';
+
+        // Revert the chart to its initial state
+        riskChart.data.datasets[0].backgroundColor = 'rgba(54, 162, 235, 0.2)'; // Low Risk
+        riskChart.data.datasets[1].backgroundColor = 'rgba(255, 206, 86, 0.2)'; // Medium Risk
+        riskChart.data.datasets[2].backgroundColor = 'rgba(75, 192, 192, 0.2)'; // High Risk
+        riskChart.data.datasets[3].backgroundColor = 'rgba(255, 99, 132, 0.2)'; // Catastrophic Risk
+
+        riskChart.data.datasets[0].data = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0]; // Low Risk
+        riskChart.data.datasets[1].data = [0, 0, 0, 1, 1, 1, 0, 0, 0, 0]; // Medium Risk
+        riskChart.data.datasets[2].data = [0, 0, 0, 0, 0, 0, 1, 1, 0, 0]; // High Risk
+        riskChart.data.datasets[3].data = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]; // Catastrophic Risk
+
+        riskChart.update(); // Refresh the chart to reflect the reset state
+    }
+</script>
